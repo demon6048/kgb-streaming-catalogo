@@ -182,6 +182,62 @@
         </button>
       </div>
 
+      <!-- SECCIÓN ESPECIAL: EL ENGREÍDO DEL DÍA + LAS PLATAFORMAS MÁS PEDIDAS -->
+      <div class="mb-6 grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- El Engreído del Día (Ganador Asignado desde Admin) -->
+        <div id="engreidoDelDiaCard" class="lg:col-span-5 rounded-2xl p-4 sm:p-5 bg-gradient-to-br from-violet-950/85 via-[#13112e] to-amber-950/45 border border-amber-400/40 shadow-xl relative overflow-hidden flex flex-col justify-between gap-3">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wider">
+                  🎁 El Engreído del Día
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-bold">
+                  📅 Inicia: 15 de Noviembre 2026
+                </span>
+              </div>
+              <h3 id="engreidoTitleDisplay" class="font-display font-extrabold text-base sm:text-lg text-white mt-2">
+                ¡Premiamos la fidelidad de nuestros clientes!
+              </h3>
+            </div>
+            <span class="text-2xl sm:text-3xl shrink-0">👑</span>
+          </div>
+
+          <p id="engreidoDescDisplay" class="text-xs text-slate-200 leading-relaxed">
+            Desde este 15 de noviembre de 2026 publicaremos aquí todos los días al cliente ganador de una cuenta gratis (Netflix, Disney+, Max, Gemini, Canva o ChatGPT).
+          </p>
+
+          <div class="p-3 rounded-xl bg-slate-950/85 border border-amber-400/30 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 block">👤 Cliente Ganador (Engreído)</span>
+              <span id="engreidoWinnerDisplay" class="font-display font-extrabold text-xs sm:text-sm text-amber-300">Próximo inicio: 15 de Noviembre 2026</span>
+            </div>
+            <div class="sm:text-right">
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 block">🎁 Cuenta Regalada</span>
+              <span id="engreidoPrizeDisplay" class="font-display font-extrabold text-xs sm:text-sm text-cyan-300">Cuenta Premium Sorpresa</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Las Plataformas Más Pedidas (Top Ranking por Puntaje/Ventas) -->
+        <div class="lg:col-span-7 rounded-2xl p-4 sm:p-5 bg-slate-900/90 border border-cyan-400/25 shadow-xl flex flex-col justify-between">
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🔥</span>
+              <div>
+                <h3 class="font-display font-extrabold text-sm sm:text-base text-white leading-tight">Las Plataformas Más Pedidas</h3>
+                <p class="text-[11px] text-slate-400">Ranking actualizado según las preferencias y ventas de nuestros clientes</p>
+              </div>
+            </div>
+            <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-400/30 font-bold uppercase shrink-0">Top Ventas</span>
+          </div>
+
+          <div id="mostRequestedContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <!-- Top 3 renderizado dinámicamente según puntaje -->
+          </div>
+        </div>
+      </div>
+
       <!-- Buscador y Filtros por Categoría -->
       <div id="catalogAnchor" class="mb-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
         <!-- Categorías -->
@@ -263,19 +319,45 @@
           </div>
         </div>
 
-        <!-- Configuración rápida de mensaje de campaña -->
-        <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-amber-400/25 space-y-3">
-          <h3 class="font-display font-bold text-sm text-amber-300 uppercase tracking-wider">Mensaje de Campaña y Porcentaje</h3>
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-            <div class="md:col-span-3">
-              <label class="block text-xs text-slate-400 mb-1">Texto visible en el cintillo superior</label>
-              <input id="cfgCampaignMsg" type="text" class="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-white/15 text-sm text-white" />
+        <!-- Configuración rápida de mensaje de campaña y EL ENGREÍDO DEL DÍA -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-amber-400/25 space-y-3">
+            <h3 class="font-display font-bold text-sm text-amber-300 uppercase tracking-wider">Mensaje de Campaña y Porcentaje</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Texto visible en el cintillo superior</label>
+                <input id="cfgCampaignMsg" type="text" class="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-white/15 text-sm text-white" />
+              </div>
+              <div class="flex items-end gap-2">
+                <div class="w-36">
+                  <label class="block text-xs text-slate-400 mb-1">% Aporte Cofradía</label>
+                  <input id="cfgPercentage" type="number" min="1" max="100" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/15 text-sm text-white" />
+                </div>
+                <button onclick="saveCampaignSettings()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shrink-0">Guardar Campaña</button>
+              </div>
             </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">% Aporte Cofradía</label>
-              <div class="flex gap-2">
-                <input id="cfgPercentage" type="number" min="1" max="100" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/15 text-sm text-white" />
-                <button onclick="saveCampaignSettings()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shrink-0">Guardar</button>
+          </div>
+
+          <!-- Panel de Control: El Engreído del Día -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-violet-400/30 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="font-display font-bold text-sm text-violet-300 uppercase tracking-wider">👑 Asignar "El Engreído del Día" (Ganador)</h3>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 text-[10px] font-bold">
+                Inicio oficial: 15 Nov 2026
+              </span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-xs text-amber-300 font-semibold mb-1">👤 Nombre del Cliente Ganador</label>
+                <input id="cfgEngreidoWinner" type="text" placeholder="Ej: Carlos M. / Inicio: 15 de Noviembre" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-amber-400/40 text-xs sm:text-sm text-white font-semibold" />
+              </div>
+              <div>
+                <label class="block text-xs text-cyan-300 font-semibold mb-1">🎁 Cuenta / Premio Entregado</label>
+                <input id="cfgEngreidoPrize" type="text" placeholder="Ej: Netflix 4K / Disney+ / ChatGPT Plus" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-cyan-400/40 text-xs sm:text-sm text-white" />
+              </div>
+              <div class="sm:col-span-2 flex gap-2">
+                <input id="cfgEngreidoDesc" type="text" placeholder="Anuncio o mensaje (Ej: Sorteos diarios desde el 15 de noviembre de 2026)..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/15 text-xs sm:text-sm text-white" />
+                <button onclick="saveCampaignSettings()" class="px-4 py-2 rounded-xl bg-violet-400 hover:bg-violet-300 text-slate-950 font-extrabold text-xs shrink-0">Publicar Ganador</button>
               </div>
             </div>
           </div>
@@ -291,7 +373,8 @@
                   <th class="py-3 px-3">Plataforma y Plan</th>
                   <th class="py-3 px-3">Categoría</th>
                   <th class="py-3 px-3">Precio</th>
-                  <th class="py-3 px-3">Estado</th>
+                  <th class="py-3 px-3">🔥 Puntaje / Ventas</th>
+                  <th class="py-3 px-3">Visibilidad / Modo Fantasma</th>
                   <th class="py-3 px-4 text-right">Acciones</th>
                 </tr>
               </thead>
@@ -468,16 +551,24 @@
             <label class="block text-slate-300 font-semibold mb-1">Etiqueta Superior (Opcional)</label>
             <input id="editProdBadge" type="text" placeholder="Ej: Destacado / Más vendido" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/15 text-white" />
           </div>
-          <div class="flex items-center gap-5 pt-5">
-            <label class="inline-flex items-center gap-2 cursor-pointer">
-              <input id="editProdPublished" type="checkbox" checked class="rounded text-cyan-400" />
-              <span class="text-slate-200 font-semibold">Publicado</span>
-            </label>
-            <label class="inline-flex items-center gap-2 cursor-pointer">
-              <input id="editProdFeatured" type="checkbox" class="rounded text-amber-400" />
-              <span class="text-amber-300 font-semibold">Destacado</span>
-            </label>
+          <div>
+            <label class="block text-amber-300 font-bold mb-1">🔥 Puntaje / Ventas (Mayor puntaje = Sale primero y en Más Pedidos)</label>
+            <input id="editProdSalesScore" type="number" min="0" step="1" value="50" placeholder="Ej: 120" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-amber-400/40 text-white font-bold" />
           </div>
+        </div>
+
+        <div class="p-3 rounded-2xl bg-slate-950/90 border border-white/10 flex flex-wrap items-center justify-between gap-4">
+          <label class="inline-flex items-center gap-2.5 cursor-pointer">
+            <input id="editProdGhost" type="checkbox" class="w-4 h-4 rounded text-rose-500" />
+            <div>
+              <span class="text-rose-300 font-bold block">👻 Activar Modo Fantasma (Ocultar del catálogo)</span>
+              <span class="text-[11px] text-slate-400">Si se agotó (ej. Disney por Champions), márcalo y desaparecerá del catálogo público al instante.</span>
+            </div>
+          </label>
+          <label class="inline-flex items-center gap-2 cursor-pointer">
+            <input id="editProdFeatured" type="checkbox" class="w-4 h-4 rounded text-amber-400" />
+            <span class="text-amber-300 font-semibold">Destacado</span>
+          </label>
         </div>
 
         <div>
@@ -526,7 +617,10 @@
     let campaignSettings = {
       campaignName: "Juntos por el Niño Jesús de Paucarbambilla",
       percentage: 40,
-      bannerMessage: "Con tus compras en esta campaña, KGB Streaming destina el 40% de la ganancia a la Cofradía Niño Jesús de Paucarbambilla."
+      bannerMessage: "Con tus compras en esta campaña, KGB Streaming destina el 40% de la ganancia a la Cofradía Niño Jesús de Paucarbambilla.",
+      engreidoWinner: "Inicia el 15 de Noviembre 2026",
+      engreidoPrize: "Cuenta Premium (Netflix, Disney+, Max, IA...)",
+      engreidoDesc: "Desde este 15 de noviembre de 2026 publicaremos aquí todos los días al cliente ganador de nuestro sorteo diario."
     };
 
     const INITIAL_PRODUCTS = [
@@ -544,7 +638,9 @@
         features: ["4K Ultra HD", "1 Pantalla Privada", "Con PIN de seguridad", "Smart TV / Celular / PC"],
         rules: ["Uso exclusivo en 1 dispositivo a la vez", "No modificar datos de la cuenta", "Garantía durante todo el periodo contratado"],
         published: true,
+        ghostMode: false,
         featured: true,
+        salesScore: 150,
         order: 1
       },
       {
@@ -561,7 +657,9 @@
         features: ["ESPN en vivo", "4K HDR", "Perfil privado", "Catálogo completo"],
         rules: ["1 dispositivo en simultáneo", "No compartir fuera del hogar", "Soporte y garantía 30 días"],
         published: true,
+        ghostMode: false,
         featured: true,
+        salesScore: 140,
         order: 2
       },
       {
@@ -578,7 +676,9 @@
         features: ["Calidad 4K UHD", "Audio Dolby Atmos", "1 Perfil propio", "Renovable"],
         rules: ["No alterar perfiles de otros usuarios", "Uso en 1 pantalla", "Garantía total"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 125,
         order: 3
       },
       {
@@ -595,7 +695,9 @@
         features: ["Full HD / 4K", "1 Dispositivo", "Activación rápida"],
         rules: ["No realizar alquileres adicionales en tienda", "Uso en 1 dispositivo", "Garantía 30 días"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 85,
         order: 4
       },
       {
@@ -612,7 +714,9 @@
         features: ["Sin anuncios", "Descargas offline", "En tu propio correo o cuenta nueva"],
         rules: ["Activación guiada por WhatsApp", "Garantía mensual completa"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 95,
         order: 5
       },
       {
@@ -629,7 +733,9 @@
         features: ["Cero anuncios", "Reproducción en segundo plano", "Incluye YouTube Music"],
         rules: ["Se activa en tu correo personal", "Soporte garantizado todo el mes"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 90,
         order: 6
       },
       {
@@ -646,7 +752,9 @@
         features: ["Mega Fan HD", "Sin publicidad", "1 Perfil privado"],
         rules: ["Uso en 1 dispositivo", "No cambiar credenciales"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 70,
         order: 7
       },
       {
@@ -663,7 +771,9 @@
         features: ["Licencia Autodesk Oficial", "AutoCAD, Revit, Civil 3D", "Para Windows y Mac", "Actualizaciones oficiales"],
         rules: ["Activación sobre cuenta Autodesk del cliente", "Soporte de instalación y activación", "Garantía de 12 meses"],
         published: true,
+        ghostMode: false,
         featured: true,
+        salesScore: 110,
         order: 8
       },
       {
@@ -680,7 +790,9 @@
         features: ["Licencia Antivirus Original", "1 PC o Laptop", "12 Meses de protección", "Actualización de firmas"],
         rules: ["Código de activación único", "Válido para 1 equipo", "Asesoría en instalación"],
         published: true,
+        ghostMode: false,
         featured: true,
+        salesScore: 80,
         order: 9
       },
       {
@@ -697,7 +809,9 @@
         features: ["Word, Excel, PowerPoint", "Compatible Windows y Mac", "Licencia por 12 meses"],
         rules: ["Entrega inmediata por WhatsApp", "Garantía anual"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 75,
         order: 10
       },
       {
@@ -714,7 +828,9 @@
         features: ["Modelos Pro de última generación", "Integración con Google Workspace", "Acceso prioritario"],
         rules: ["Activación rápida por WhatsApp", "Garantía 30 días"],
         published: true,
+        ghostMode: false,
         featured: true,
+        salesScore: 115,
         order: 11
       },
       {
@@ -731,7 +847,9 @@
         features: ["Acceso a modelos avanzados", "Subida de archivos y PDFs", "Generación de imágenes"],
         rules: ["Respetar normas de uso compartido o individual según plan", "Soporte todo el mes"],
         published: true,
+        ghostMode: false,
         featured: true,
+        salesScore: 130,
         order: 12
       },
       {
@@ -748,7 +866,9 @@
         features: ["Catálogo +400 juegos", "Incluye EA Play", "Funciona en PC y Consola Xbox"],
         rules: ["Instrucciones paso a paso por WhatsApp", "Garantía completa del mes"],
         published: true,
+        ghostMode: false,
         featured: true,
+        salesScore: 88,
         order: 13
       },
       {
@@ -765,7 +885,9 @@
         features: ["Multijugador online", "Catálogo de juegos", "Compatible PS4 y PS5"],
         rules: ["Seguir guía de activación de consola", "Soporte directo por WhatsApp"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 78,
         order: 14
       },
       {
@@ -782,7 +904,9 @@
         features: ["Se activa en tu propio correo", "Quitafondos automático", "Exportación en alta calidad"],
         rules: ["Activación por invitación oficial", "Garantía durante todo el periodo"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 105,
         order: 15
       },
       {
@@ -799,7 +923,9 @@
         features: ["Efectos y transiciones Pro", "Subtítulos IA", "PC y Celular"],
         rules: ["Uso en 1 dispositivo", "No modificar contraseña"],
         published: true,
+        ghostMode: false,
         featured: false,
+        salesScore: 82,
         order: 16
       }
     ];
@@ -809,6 +935,18 @@
     let searchQuery = "";
     let cart = [];
     let isAdminLogged = false;
+
+    // Verifica si un producto está visible (No está en Modo Fantasma ni oculto)
+    function isProductVisible(p) {
+      return p.published !== false && p.ghostMode !== true;
+    }
+
+    // Obtiene el puntaje/ventas de un producto para ordenar los más pedidos
+    function getProductScore(p) {
+      if (typeof p.salesScore === "number") return p.salesScore;
+      const fallback = INITIAL_PRODUCTS.find(x => x.id === p.id);
+      return fallback ? fallback.salesScore : 50;
+    }
 
     // Convierte cualquier link de Imgur (incluso galerías o links sin extensión) en link directo de imagen
     function normalizeImgurUrl(url) {
@@ -910,6 +1048,7 @@
               products = cloudList;
               saveLocalState();
               renderCategories();
+              renderMostRequested();
               renderProductsGrid();
               if (isAdminLogged) renderAdminTable();
             }
@@ -920,7 +1059,7 @@
           }
         );
 
-        // 2. Escuchar en tiempo real la configuración de la campaña
+        // 2. Escuchar en tiempo real la configuración de la campaña y El Engreído del Día
         db.collection("settings").doc("campaign").onSnapshot(
           async (docSnap) => {
             if (docSnap.exists) {
@@ -930,8 +1069,14 @@
               if (isAdminLogged) {
                 const msgInput = document.getElementById("cfgCampaignMsg");
                 const pctInput = document.getElementById("cfgPercentage");
-                if (msgInput) msgInput.value = campaignSettings.bannerMessage;
-                if (pctInput) pctInput.value = campaignSettings.percentage;
+                const prizeInput = document.getElementById("cfgEngreidoPrize");
+                const winnerInput = document.getElementById("cfgEngreidoWinner");
+                const descInput = document.getElementById("cfgEngreidoDesc");
+                if (msgInput) msgInput.value = campaignSettings.bannerMessage || "";
+                if (pctInput) pctInput.value = campaignSettings.percentage || 40;
+                if (prizeInput) prizeInput.value = campaignSettings.engreidoPrize || "";
+                if (winnerInput) winnerInput.value = campaignSettings.engreidoWinner || "";
+                if (descInput) descInput.value = campaignSettings.engreidoDesc || "";
               }
             } else {
               await db.collection("settings").doc("campaign").set(campaignSettings);
@@ -987,18 +1132,69 @@ Precio publicado S/${Number(p.price).toFixed(2)}
     function renderCampaignBanner() {
       const bannerEl = document.getElementById("campaignBannerMessage");
       if (bannerEl) {
-        bannerEl.innerHTML = campaignSettings.bannerMessage
+        bannerEl.innerHTML = (campaignSettings.bannerMessage || "")
           .replace("KGB Streaming", '<strong class="text-cyan-300">KGB Streaming</strong>')
           .replace(/\d+%/g, `<strong class="text-amber-300">${campaignSettings.percentage}%</strong>`);
       }
       const pctEl = document.getElementById("cartContributionPct");
       if (pctEl) pctEl.textContent = `${campaignSettings.percentage}%`;
+
+      // Actualizar datos de "El Engreído del Día"
+      const prizeEl = document.getElementById("engreidoPrizeDisplay");
+      const winnerEl = document.getElementById("engreidoWinnerDisplay");
+      const descEl = document.getElementById("engreidoDescDisplay");
+      if (prizeEl) prizeEl.textContent = campaignSettings.engreidoPrize || "Cuenta Premium (Netflix, Disney+, Max, IA...)";
+      if (winnerEl) winnerEl.textContent = campaignSettings.engreidoWinner || "Inicia el 15 de Noviembre 2026";
+      if (descEl) descEl.textContent = campaignSettings.engreidoDesc || "Desde este 15 de noviembre de 2026 publicaremos aquí todos los días al cliente ganador de nuestro sorteo diario.";
+    }
+
+    // Renderiza el Top 3 de "Las Plataformas Más Pedidas" según su puntaje/ventas
+    function renderMostRequested() {
+      const container = document.getElementById("mostRequestedContainer");
+      if (!container) return;
+
+      const topProducts = products
+        .filter(p => isProductVisible(p))
+        .sort((a, b) => getProductScore(b) - getProductScore(a))
+        .slice(0, 3);
+
+      if (topProducts.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 col-span-full">Pronto verás las plataformas más pedidas del día.</p>`;
+        return;
+      }
+
+      const medals = ["🥇 #1 Más Pedido", "🥈 #2 Top Ventas", "🥉 #3 Favorito"];
+
+      container.innerHTML = topProducts.map((p, index) => {
+        const score = getProductScore(p);
+        const accent = p.accentColor || "#00f0ff";
+        return `
+          <div
+            onclick="openProductDetailModal('${p.id}')"
+            class="cursor-pointer group p-3 rounded-xl bg-slate-950/85 hover:bg-slate-950 border border-white/10 hover:border-cyan-400/50 transition flex flex-col justify-between gap-2"
+            style="box-shadow: inset 0 0 18px ${accent}18;"
+          >
+            <div class="flex items-center justify-between gap-1">
+              <span class="text-[10px] font-extrabold text-amber-300">${medals[index] || "🔥 Top"}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-cyan-300 font-bold">${score} pts</span>
+            </div>
+            <div>
+              <p class="font-display font-extrabold text-xs sm:text-sm text-white group-hover:text-cyan-300 transition truncate">${p.platform}</p>
+              <p class="text-[11px] text-slate-400 truncate">${p.plan}</p>
+            </div>
+            <div class="flex items-center justify-between pt-1 border-t border-white/5">
+              <span class="font-display font-black text-xs sm:text-sm text-cyan-300">S/ ${Number(p.price).toFixed(2)}</span>
+              <span class="text-[10px] text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Pedir →</span>
+            </div>
+          </div>
+        `;
+      }).join("");
     }
 
     function renderCategories() {
       const bar = document.getElementById("categoryFilterBar");
       if (!bar) return;
-      const publishedProducts = products.filter(p => p.published !== false);
+      const publishedProducts = products.filter(p => isProductVisible(p));
 
       bar.innerHTML = CATEGORIES.map(cat => {
         const count = cat === "Todos"
@@ -1026,7 +1222,7 @@ Precio publicado S/${Number(p.price).toFixed(2)}
       if (!grid) return;
 
       const filtered = products
-        .filter(p => p.published !== false)
+        .filter(p => isProductVisible(p))
         .filter(p => selectedCategory === "Todos" || p.category === selectedCategory)
         .filter(p => {
           if (!searchQuery.trim()) return true;
@@ -1039,7 +1235,7 @@ Precio publicado S/${Number(p.price).toFixed(2)}
             (p.features || []).some(f => f.toLowerCase().includes(q))
           );
         })
-        .sort((a, b) => (a.order || 99) - (b.order || 99));
+        .sort((a, b) => getProductScore(b) - getProductScore(a) || (a.order || 99) - (b.order || 99));
 
       if (filtered.length === 0) {
         grid.innerHTML = `
@@ -1416,16 +1612,24 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
     }
 
     function renderAdminTable() {
-      document.getElementById("cfgCampaignMsg").value = campaignSettings.bannerMessage;
-      document.getElementById("cfgPercentage").value = campaignSettings.percentage;
+      document.getElementById("cfgCampaignMsg").value = campaignSettings.bannerMessage || "";
+      document.getElementById("cfgPercentage").value = campaignSettings.percentage || 40;
+      const prizeInput = document.getElementById("cfgEngreidoPrize");
+      const winnerInput = document.getElementById("cfgEngreidoWinner");
+      const descInput = document.getElementById("cfgEngreidoDesc");
+      if (prizeInput) prizeInput.value = campaignSettings.engreidoPrize || "";
+      if (winnerInput) winnerInput.value = campaignSettings.engreidoWinner || "";
+      if (descInput) descInput.value = campaignSettings.engreidoDesc || "";
 
       const tbody = document.getElementById("adminProductsTableBody");
-      const sorted = [...products].sort((a, b) => (a.order || 99) - (b.order || 99));
+      const sorted = [...products].sort((a, b) => getProductScore(b) - getProductScore(a) || (a.order || 99) - (b.order || 99));
 
       tbody.innerHTML = sorted.map(p => {
         const imgUrl = normalizeImgurUrl(p.imageUrl);
+        const isGhost = !isProductVisible(p);
+        const score = getProductScore(p);
         return `
-          <tr class="hover:bg-white/5 transition">
+          <tr class="hover:bg-white/5 transition ${isGhost ? "opacity-60 bg-rose-950/10" : ""}">
             <td class="py-3 px-4">
               <div class="w-24 h-14 rounded-lg overflow-hidden border border-white/15 bg-slate-950 flex items-center justify-center">
                 ${imgUrl
@@ -1443,8 +1647,23 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
             </td>
             <td class="py-3 px-3 font-bold text-cyan-300">S/ ${Number(p.price).toFixed(2)}</td>
             <td class="py-3 px-3">
-              <button onclick="toggleProductPublished('${p.id}')" class="px-2.5 py-1 rounded-full text-[11px] font-bold ${p.published !== false ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}">
-                ${p.published !== false ? "Publicado" : "Oculto"}
+              <div class="inline-flex items-center gap-1.5 bg-slate-950 border border-white/15 rounded-xl px-2 py-1">
+                <button onclick="changeProductScore('${p.id}', -5)" title="Restar puntos" class="w-6 h-6 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 font-bold text-xs">-</button>
+                <span class="font-display font-extrabold text-xs text-amber-300 min-w-[36px] text-center">🔥 ${score}</span>
+                <button onclick="changeProductScore('${p.id}', 5)" title="Sumar puntos/ventas" class="w-6 h-6 rounded-lg bg-amber-400/20 hover:bg-amber-400/35 text-amber-300 font-bold text-xs">+</button>
+              </div>
+            </td>
+            <td class="py-3 px-3">
+              <button
+                onclick="toggleProductPublished('${p.id}')"
+                title="Haz clic para alternar entre Visible y Modo Fantasma"
+                class="px-3 py-1.5 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 ${
+                  !isGhost
+                    ? "bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/30"
+                    : "bg-rose-500/25 hover:bg-rose-500/35 text-rose-300 border border-rose-400/40"
+                }"
+              >
+                <span>${!isGhost ? "🟢 Visible" : "👻 Fantasma (Oculto)"}</span>
               </button>
             </td>
             <td class="py-3 px-4 text-right space-x-1.5">
@@ -1485,7 +1704,8 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
         document.getElementById("editProdDuration").value = p.duration;
         document.getElementById("editProdAccent").value = p.accentColor || "#00f0ff";
         document.getElementById("editProdBadge").value = p.badge || "";
-        document.getElementById("editProdPublished").checked = p.published !== false;
+        document.getElementById("editProdSalesScore").value = getProductScore(p);
+        document.getElementById("editProdGhost").checked = !isProductVisible(p);
         document.getElementById("editProdFeatured").checked = Boolean(p.featured);
         document.getElementById("editProdShortDesc").value = p.shortDesc || "";
         document.getElementById("editProdFeatures").value = (p.features || []).join(", ");
@@ -1502,7 +1722,8 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
         document.getElementById("editProdDuration").value = "1 Mes";
         document.getElementById("editProdAccent").value = "#00f0ff";
         document.getElementById("editProdBadge").value = "";
-        document.getElementById("editProdPublished").checked = true;
+        document.getElementById("editProdSalesScore").value = 50;
+        document.getElementById("editProdGhost").checked = false;
         document.getElementById("editProdFeatured").checked = false;
         document.getElementById("editProdShortDesc").value = "";
         document.getElementById("editProdFeatures").value = "Entrega inmediata, Garantía todo el mes";
@@ -1531,6 +1752,7 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       const existingId = document.getElementById("editProdId").value;
       const id = existingId || ("prod-" + Date.now());
       const existingObj = products.find(x => x.id === id);
+      const isGhostChecked = document.getElementById("editProdGhost").checked;
 
       const updated = {
         id,
@@ -1542,7 +1764,9 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
         duration: document.getElementById("editProdDuration").value.trim(),
         accentColor: document.getElementById("editProdAccent").value,
         badge: document.getElementById("editProdBadge").value.trim(),
-        published: document.getElementById("editProdPublished").checked,
+        salesScore: Number(document.getElementById("editProdSalesScore").value) || 0,
+        ghostMode: isGhostChecked,
+        published: !isGhostChecked,
         featured: document.getElementById("editProdFeatured").checked,
         shortDesc: document.getElementById("editProdShortDesc").value.trim(),
         features: document.getElementById("editProdFeatures").value.split(",").map(s => s.trim()).filter(Boolean),
@@ -1558,6 +1782,7 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
 
       saveLocalState();
       renderCategories();
+      renderMostRequested();
       renderProductsGrid();
       renderAdminTable();
 
@@ -1569,7 +1794,7 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
         } catch (err) {
           console.error("Error guardando en Firebase:", err);
           updateStatusBadge("error");
-          alert("Atención: Se guardó en este navegador, pero Firebase rechazó la subida (" + err.message + ").\n\nVerifica en Firebase Console -> Firestore Database -> Reglas que tengas: allow read, write: if true;");
+          alert("Atención: Se guardó en este navegador, pero Firebase rechazó la subida (" + err.message + ").");
         }
       } else {
         closeProductEditor();
@@ -1579,12 +1804,34 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       submitBtn.disabled = false;
     }
 
+    // Subir o bajar puntaje/ventas desde la tabla del Admin en 1 clic
+    async function changeProductScore(id, delta) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      p.salesScore = Math.max(0, getProductScore(p) + delta);
+      saveLocalState();
+      renderMostRequested();
+      renderProductsGrid();
+      renderAdminTable();
+      if (db) {
+        try {
+          await db.collection("products").doc(p.id).set(p);
+        } catch (err) {
+          updateStatusBadge("error");
+        }
+      }
+    }
+
+    // Alternar Modo Fantasma (Ocultar / Mostrar cuando se agota una cuenta como Disney por Champions)
     async function toggleProductPublished(id) {
       const p = products.find(x => x.id === id);
       if (!p) return;
-      p.published = p.published === false ? true : false;
+      const currentlyVisible = isProductVisible(p);
+      p.ghostMode = currentlyVisible;
+      p.published = !currentlyVisible;
       saveLocalState();
       renderCategories();
+      renderMostRequested();
       renderProductsGrid();
       renderAdminTable();
       if (db) {
@@ -1601,6 +1848,7 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       products = products.filter(x => x.id !== id);
       saveLocalState();
       renderCategories();
+      renderMostRequested();
       renderProductsGrid();
       renderAdminTable();
       if (db) {
@@ -1615,12 +1863,19 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
     async function saveCampaignSettings() {
       campaignSettings.bannerMessage = document.getElementById("cfgCampaignMsg").value.trim();
       campaignSettings.percentage = Number(document.getElementById("cfgPercentage").value) || 40;
+      const prizeInput = document.getElementById("cfgEngreidoPrize");
+      const winnerInput = document.getElementById("cfgEngreidoWinner");
+      const descInput = document.getElementById("cfgEngreidoDesc");
+      if (prizeInput) campaignSettings.engreidoPrize = prizeInput.value.trim();
+      if (winnerInput) campaignSettings.engreidoWinner = winnerInput.value.trim();
+      if (descInput) campaignSettings.engreidoDesc = descInput.value.trim();
+
       saveLocalState();
       renderCampaignBanner();
       if (db) {
         try {
           await db.collection("settings").doc("campaign").set(campaignSettings);
-          alert("Configuración guardada en Firebase para todos los dispositivos.");
+          alert("Ganador y configuración de 'El Engreído del Día' publicados en Firebase.");
         } catch (err) {
           updateStatusBadge("error");
           alert("Error subiendo configuración a Firebase: " + err.message);
@@ -1645,6 +1900,7 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
     loadLocalState();
     renderCampaignBanner();
     renderCategories();
+    renderMostRequested();
     renderProductsGrid();
     updateCartBadges();
     initFirebaseConnection();
