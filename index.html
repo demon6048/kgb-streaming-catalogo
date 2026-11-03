@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KGB Streaming · Juntos por el Niño Jesús de Paucarbambilla</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SDK Oficial de Firebase Compat (100% estable en navegador, Vite, Vercel y Vista Previa sin errores de módulos) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -126,7 +129,7 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="font-display font-extrabold text-base sm:text-lg tracking-tight text-white">KGB STREAMING</span>
-            <span id="cloudStatusBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-400/30 font-semibold">Online</span>
+            <span id="cloudStatusBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30 font-semibold">Conectando...</span>
           </div>
           <p class="text-[11px] sm:text-xs text-amber-300/90 font-medium line-clamp-1">Juntos por el Niño Jesús de Paucarbambilla</p>
         </div>
@@ -143,6 +146,17 @@
       </nav>
     </div>
   </header>
+
+  <!-- AVISO SI LAS REGLAS DE FIREBASE BLOQUEAN ESCRITURA/LECTURA -->
+  <div id="firebaseRuleWarning" class="hidden max-w-7xl mx-auto px-4 sm:px-6 pt-4">
+    <div class="p-4 rounded-2xl bg-rose-950/80 border border-rose-400/50 text-rose-100 text-xs sm:text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div>
+        <strong class="text-rose-300 font-bold block">⚠️ Atención: Tu base de datos Firebase rechazó la conexión por permisos (Reglas de Firestore).</strong>
+        <span>Entra a Firebase Console → <strong>Firestore Database</strong> → pestaña <strong>Reglas (Rules)</strong> y cambia <code>allow read, write: if false;</code> por <code>allow read, write: if true;</code> y dale a <strong>Publicar</strong>.</span>
+      </div>
+      <button onclick="retryFirebaseSync()" class="shrink-0 px-3.5 py-2 rounded-xl bg-rose-400 text-slate-950 font-extrabold text-xs">Reintentar conexión</button>
+    </div>
+  </div>
 
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-7">
@@ -203,7 +217,7 @@
           <img src="https://i.imgur.com/3cQ3Fzy.png" alt="KGB" class="w-12 h-12 rounded-xl object-contain bg-slate-950 p-1 border border-cyan-400/40" />
           <div>
             <h2 class="font-display font-bold text-xl text-white">Panel Administrador</h2>
-            <p class="text-xs text-slate-400">Gestión de catálogo y fotos de plataformas</p>
+            <p class="text-xs text-slate-400">Gestión sincronizada con Google Firebase</p>
           </div>
         </div>
         <form onsubmit="handleAdminLogin(event)" class="space-y-4">
@@ -227,10 +241,16 @@
       <div id="adminDashboardBox" class="hidden space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/90 border border-white/10">
           <div>
-            <h2 class="font-display font-extrabold text-xl text-white">Administrador de Catálogo · KGB Streaming</h2>
-            <p class="text-xs text-slate-400">Pega el link de Imgur en cualquier producto para cambiar su foto de portada en tiempo real.</p>
+            <div class="flex items-center gap-2">
+              <h2 class="font-display font-extrabold text-xl text-white">Administrador de Catálogo · KGB Streaming</h2>
+              <span id="adminFirebaseStatus" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-bold">Sincronizado</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Todo cambio que guardes aquí se sube a Firebase y se actualiza al instante en celulares y computadoras.</p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="forcePushAllToFirebase()" class="px-3.5 py-2.5 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/40 text-amber-300 font-bold text-xs">
+              ☁️ Forzar Subida a Firebase
+            </button>
             <button onclick="openProductEditor()" class="px-4 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-cyan-500/20">
               + Nuevo Producto / Plataforma
             </button>
@@ -478,17 +498,30 @@
 
         <div class="flex justify-end gap-2 pt-3 border-t border-white/10">
           <button type="button" onclick="closeProductEditor()" class="px-4 py-2.5 rounded-xl bg-white/10 text-slate-300 font-semibold">Cancelar</button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold">Guardar Cambios</button>
+          <button id="saveProductSubmitBtn" type="submit" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold">Guardar en Firebase</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- LÓGICA PRINCIPAL DEL CATÁLOGO -->
+  <!-- SCRIPT UNIFICADO (CATÁLOGO + CONEXIÓN DIRECTA CON GOOGLE FIREBASE) -->
   <script>
     const WHATSAPP_NUMBER = "51989631010";
     const WHATSAPP_BASE_URL = "https://wa.me/51989631010";
     const CATEGORIES = ["Todos", "Streaming", "Licencias", "IA", "Zona Gamer", "Otros"];
+
+    // Credenciales exactas de tu proyecto Firebase
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyAxkp_D8phBIIphD_zOvGvV5DCZ1hpI-DI",
+      authDomain: "kgb-streaming-paucarbambilla.firebaseapp.com",
+      projectId: "kgb-streaming-paucarbambilla",
+      storageBucket: "kgb-streaming-paucarbambilla.firebasestorage.app",
+      messagingSenderId: "549844863731",
+      appId: "1:549844863731:web:8e9232c928d125f7ab4586"
+    };
+
+    let db = null;
+    let isFirebaseReady = false;
 
     let campaignSettings = {
       campaignName: "Juntos por el Niño Jesús de Paucarbambilla",
@@ -496,7 +529,6 @@
       bannerMessage: "Con tus compras en esta campaña, KGB Streaming destina el 40% de la ganancia a la Cofradía Niño Jesús de Paucarbambilla."
     };
 
-    // Catálogo inicial con tus 5 categorías oficiales y soporte para imageUrl de Imgur
     const INITIAL_PRODUCTS = [
       {
         id: "netflix-4k",
@@ -772,30 +804,64 @@
       }
     ];
 
-    let products = [];
+    let products = [...INITIAL_PRODUCTS];
     let selectedCategory = "Todos";
     let searchQuery = "";
     let cart = [];
     let isAdminLogged = false;
 
-    // Convierte links de Imgur tipo https://imgur.com/abc123 a link directo de imagen
+    // Convierte cualquier link de Imgur (incluso galerías o links sin extensión) en link directo de imagen
     function normalizeImgurUrl(url) {
       if (!url) return "";
       const clean = url.trim();
-      const match = clean.match(/^https?:\/\/(?:www\.)?imgur\.com\/([a-zA-Z0-9]+)$/i);
-      if (match && match[1]) {
-        return `https://i.imgur.com/${match[1]}.png`;
+      const directMatch = clean.match(/^https?:\/\/i\.imgur\.com\/([a-zA-Z0-9]+)\.(png|jpg|jpeg|webp|gif)$/i);
+      if (directMatch) return clean;
+
+      const pageMatch = clean.match(/^https?:\/\/(?:www\.)?imgur\.com\/(?:a\/|gallery\/)?([a-zA-Z0-9]+)$/i);
+      if (pageMatch && pageMatch[1]) {
+        return `https://i.imgur.com/${pageMatch[1]}.png`;
       }
       return clean;
     }
 
+    function updateStatusBadge(state, text) {
+      const badge = document.getElementById("cloudStatusBadge");
+      const adminBadge = document.getElementById("adminFirebaseStatus");
+      const warningBox = document.getElementById("firebaseRuleWarning");
+
+      if (state === "connected") {
+        if (badge) {
+          badge.textContent = text || "🟢 Firebase Online";
+          badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 font-semibold";
+        }
+        if (adminBadge) {
+          adminBadge.textContent = "🟢 Sincronizado con Firebase";
+          adminBadge.className = "text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-bold";
+        }
+        if (warningBox) warningBox.classList.add("hidden");
+      } else if (state === "error") {
+        if (badge) {
+          badge.textContent = text || "⚠️ Revisar Reglas Firebase";
+          badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40 font-semibold";
+        }
+        if (adminBadge) {
+          adminBadge.textContent = "⚠️ Permiso denegado en Firestore";
+          adminBadge.className = "text-xs px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/30 font-bold";
+        }
+        if (warningBox) warningBox.classList.remove("hidden");
+      }
+    }
+
     function loadLocalState() {
       try {
-        const savedProds = localStorage.getItem("kgb_catalog_products_v2");
-        products = savedProds ? JSON.parse(savedProds) : [...INITIAL_PRODUCTS];
-        const savedCfg = localStorage.getItem("kgb_campaign_settings_v2");
+        const savedProds = localStorage.getItem("kgb_catalog_products_v3");
+        if (savedProds) {
+          const parsed = JSON.parse(savedProds);
+          if (Array.isArray(parsed) && parsed.length > 0) products = parsed;
+        }
+        const savedCfg = localStorage.getItem("kgb_campaign_settings_v3");
         if (savedCfg) campaignSettings = { ...campaignSettings, ...JSON.parse(savedCfg) };
-        const savedCart = localStorage.getItem("kgb_cart_v2");
+        const savedCart = localStorage.getItem("kgb_cart_v3");
         if (savedCart) cart = JSON.parse(savedCart);
       } catch (e) {
         products = [...INITIAL_PRODUCTS];
@@ -803,12 +869,110 @@
     }
 
     function saveLocalState() {
-      localStorage.setItem("kgb_catalog_products_v2", JSON.stringify(products));
-      localStorage.setItem("kgb_campaign_settings_v2", JSON.stringify(campaignSettings));
-      localStorage.setItem("kgb_cart_v2", JSON.stringify(cart));
+      try {
+        localStorage.setItem("kgb_catalog_products_v3", JSON.stringify(products));
+        localStorage.setItem("kgb_campaign_settings_v3", JSON.stringify(campaignSettings));
+        localStorage.setItem("kgb_cart_v3", JSON.stringify(cart));
+      } catch (e) {}
     }
 
-    // Construye el enlace de WhatsApp individual
+    // CONEXIÓN PRINCIPAL A GOOGLE FIREBASE FIRESTORE
+    function initFirebaseConnection() {
+      try {
+        if (typeof firebase === "undefined") {
+          updateStatusBadge("error", "SDK no cargó");
+          return;
+        }
+        if (!firebase.apps.length) {
+          firebase.initializeApp(FIREBASE_CONFIG);
+        }
+        db = firebase.firestore();
+
+        // 1. Escuchar en tiempo real la colección "products"
+        db.collection("products").onSnapshot(
+          async (snapshot) => {
+            isFirebaseReady = true;
+            updateStatusBadge("connected", "🟢 Firebase Sync");
+
+            if (snapshot.empty) {
+              // Si la base de datos en Firebase está vacía, subimos los 16 productos iniciales en un lote (Batch)
+              const batch = db.batch();
+              products.forEach((item) => {
+                const ref = db.collection("products").doc(item.id);
+                batch.set(ref, item);
+              });
+              await batch.commit();
+            } else {
+              const cloudList = [];
+              snapshot.forEach((docSnap) => {
+                cloudList.push(docSnap.data());
+              });
+              products = cloudList;
+              saveLocalState();
+              renderCategories();
+              renderProductsGrid();
+              if (isAdminLogged) renderAdminTable();
+            }
+          },
+          (error) => {
+            console.error("Error en Firestore products:", error);
+            updateStatusBadge("error", "⚠️ Reglas Firebase");
+          }
+        );
+
+        // 2. Escuchar en tiempo real la configuración de la campaña
+        db.collection("settings").doc("campaign").onSnapshot(
+          async (docSnap) => {
+            if (docSnap.exists) {
+              campaignSettings = { ...campaignSettings, ...docSnap.data() };
+              saveLocalState();
+              renderCampaignBanner();
+              if (isAdminLogged) {
+                const msgInput = document.getElementById("cfgCampaignMsg");
+                const pctInput = document.getElementById("cfgPercentage");
+                if (msgInput) msgInput.value = campaignSettings.bannerMessage;
+                if (pctInput) pctInput.value = campaignSettings.percentage;
+              }
+            } else {
+              await db.collection("settings").doc("campaign").set(campaignSettings);
+            }
+          },
+          (err) => {
+            console.warn("Error leyendo settings:", err);
+          }
+        );
+      } catch (err) {
+        console.error("Error inicializando Firebase:", err);
+        updateStatusBadge("error", "Error Firebase");
+      }
+    }
+
+    function retryFirebaseSync() {
+      initFirebaseConnection();
+    }
+
+    async function forcePushAllToFirebase() {
+      if (!db) {
+        alert("Firebase aún no está disponible.");
+        return;
+      }
+      try {
+        const batch = db.batch();
+        products.forEach((item) => {
+          const ref = db.collection("products").doc(item.id);
+          batch.set(ref, item);
+        });
+        await batch.commit();
+        await db.collection("settings").doc("campaign").set(campaignSettings);
+        updateStatusBadge("connected", "🟢 Firebase Sync");
+        alert("¡Listo! Todos los productos y fotos actuales se subieron correctamente a Firebase.");
+      } catch (error) {
+        console.error("Error al subir a Firebase:", error);
+        updateStatusBadge("error");
+        alert("Firebase rechazó la subida: " + error.message + "\n\nRevisa que en Firestore Database > Reglas tengas: allow read, write: if true;");
+      }
+    }
+
     function buildProductWhatsAppUrl(p) {
       const msg =
 `Hola, KGB Streaming. Vi su catálogo de la campaña ${campaignSettings.campaignName} y me interesa este servicio.
@@ -857,7 +1021,6 @@ Precio publicado S/${Number(p.price).toFixed(2)}
       }).join("");
     }
 
-    // Renderizado de las tarjetas: el cuadradito superior muestra la FOTO de Imgur si existe
     function renderProductsGrid() {
       const grid = document.getElementById("productsGrid");
       if (!grid) return;
@@ -918,10 +1081,8 @@ Precio publicado S/${Number(p.price).toFixed(2)}
                     <span class="font-display font-black text-xl text-white">${p.platform}</span>
                     <span class="text-xs text-slate-200">${p.plan}</span>
                   </div>
-                  <!-- Degradado sutil inferior para que las etiquetas se lean perfecto sobre tu foto -->
                   <div class="absolute inset-0 bg-gradient-to-t from-[#090d1d] via-transparent to-black/30 pointer-events-none"></div>
                 ` : `
-                  <!-- Diseño neón de respaldo cuando aún no has pegado link de Imgur -->
                   <div class="h-full w-full p-4 flex flex-col justify-between relative">
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center font-display font-black text-lg text-white shadow-lg border border-white/20" style="background: ${accent}33;">
                       ${p.platform.substring(0, 2).toUpperCase()}
@@ -1034,7 +1195,6 @@ Precio publicado S/${Number(p.price).toFixed(2)}
       if (el) el.scrollIntoView({ behavior: "smooth" });
     }
 
-    // Modal de Detalles con la foto grande arriba
     function openProductDetailModal(id) {
       const p = products.find(item => item.id === id);
       if (!p) return;
@@ -1106,7 +1266,6 @@ Precio publicado S/${Number(p.price).toFixed(2)}
       modal.classList.remove("flex");
     }
 
-    // Carrito sin descuentos (suma exacta)
     function updateCartBadges() {
       const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
       const b1 = document.getElementById("topCartCount");
@@ -1219,7 +1378,6 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       modal.classList.remove("flex");
     }
 
-    // Vistas Público vs Admin
     function showPublicView() {
       document.getElementById("publicCatalogView").classList.remove("hidden");
       document.getElementById("adminPanelView").classList.add("hidden");
@@ -1309,7 +1467,7 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
         box.innerHTML = `<span class="text-xs text-slate-500">Sin imagen (se usará fondo neón)</span>`;
         return;
       }
-      box.innerHTML = `<img src="${url}" alt="Vista previa" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=\\'text-xs text-rose-400\\'>No se pudo cargar la imagen. Verifica que sea un link directo de Imgur.</span>'" />`;
+      box.innerHTML = `<img src="${url}" alt="Vista previa" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=\\'text-xs text-rose-400 p-2 text-center\\'>No se pudo cargar. Usa clic derecho en Imgur -> Copiar dirección de imagen.</span>'" />`;
     }
 
     function openProductEditor(productId) {
@@ -1362,8 +1520,14 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       modal.classList.remove("flex");
     }
 
+    // GUARDADO REAL Y VERIFICADO EN FIREBASE FIRESTORE
     async function saveProductFromModal(e) {
       e.preventDefault();
+      const submitBtn = document.getElementById("saveProductSubmitBtn");
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Subiendo a Firebase...";
+      submitBtn.disabled = true;
+
       const existingId = document.getElementById("editProdId").value;
       const id = existingId || ("prod-" + Date.now());
       const existingObj = products.find(x => x.id === id);
@@ -1396,11 +1560,23 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       renderCategories();
       renderProductsGrid();
       renderAdminTable();
-      closeProductEditor();
 
-      if (window.syncProductToFirebase) {
-        await window.syncProductToFirebase(updated);
+      if (db) {
+        try {
+          await db.collection("products").doc(updated.id).set(updated);
+          updateStatusBadge("connected", "🟢 Firebase Sync");
+          closeProductEditor();
+        } catch (err) {
+          console.error("Error guardando en Firebase:", err);
+          updateStatusBadge("error");
+          alert("Atención: Se guardó en este navegador, pero Firebase rechazó la subida (" + err.message + ").\n\nVerifica en Firebase Console -> Firestore Database -> Reglas que tengas: allow read, write: if true;");
+        }
+      } else {
+        closeProductEditor();
       }
+
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     }
 
     async function toggleProductPublished(id) {
@@ -1411,17 +1587,29 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       renderCategories();
       renderProductsGrid();
       renderAdminTable();
-      if (window.syncProductToFirebase) await window.syncProductToFirebase(p);
+      if (db) {
+        try {
+          await db.collection("products").doc(p.id).set(p);
+        } catch (err) {
+          updateStatusBadge("error");
+        }
+      }
     }
 
     async function deleteProduct(id) {
-      if (!confirm("¿Seguro que deseas eliminar este producto del catálogo?")) return;
+      if (!confirm("¿Seguro que deseas eliminar este producto de Firebase y del catálogo?")) return;
       products = products.filter(x => x.id !== id);
       saveLocalState();
       renderCategories();
       renderProductsGrid();
       renderAdminTable();
-      if (window.deleteProductFromFirebase) await window.deleteProductFromFirebase(id);
+      if (db) {
+        try {
+          await db.collection("products").doc(id).delete();
+        } catch (err) {
+          updateStatusBadge("error");
+        }
+      }
     }
 
     async function saveCampaignSettings() {
@@ -1429,11 +1617,17 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       campaignSettings.percentage = Number(document.getElementById("cfgPercentage").value) || 40;
       saveLocalState();
       renderCampaignBanner();
-      if (window.syncSettingsToFirebase) await window.syncSettingsToFirebase(campaignSettings);
-      alert("Configuración de campaña actualizada.");
+      if (db) {
+        try {
+          await db.collection("settings").doc("campaign").set(campaignSettings);
+          alert("Configuración guardada en Firebase para todos los dispositivos.");
+        } catch (err) {
+          updateStatusBadge("error");
+          alert("Error subiendo configuración a Firebase: " + err.message);
+        }
+      }
     }
 
-    // Cerrar modales con tecla Escape
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         closeProductDetailModal();
@@ -1447,84 +1641,14 @@ Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`;
       if (window.location.hash === "#/admin") openAdminView();
     });
 
-    // Inicialización
+    // Arranque inmediato
     loadLocalState();
     renderCampaignBanner();
     renderCategories();
     renderProductsGrid();
     updateCartBadges();
+    initFirebaseConnection();
     if (window.location.hash === "#/admin") openAdminView();
-  </script>
-
-  <!-- INTEGRACIÓN EN TIEMPO REAL CON GOOGLE FIREBASE (FIRESTORE) -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import {
-      getFirestore,
-      collection,
-      doc,
-      setDoc,
-      deleteDoc,
-      onSnapshot
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAxkp_D8phBIIphD_zOvGvV5DCZ1hpI-DI",
-      authDomain: "kgb-streaming-paucarbambilla.firebaseapp.com",
-      projectId: "kgb-streaming-paucarbambilla",
-      storageBucket: "kgb-streaming-paucarbambilla.firebasestorage.app",
-      messagingSenderId: "549844863731",
-      appId: "1:549844863731:web:8e9232c928d125f7ab4586"
-    };
-
-    try {
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-      const badge = document.getElementById("cloudStatusBadge");
-
-      // Escuchar productos en Firestore
-      onSnapshot(collection(db, "products"), async (snapshot) => {
-        if (snapshot.empty) {
-          for (const item of products) {
-            await setDoc(doc(db, "products", item.id), item);
-          }
-        } else {
-          const cloudProducts = [];
-          snapshot.forEach(docSnap => cloudProducts.push(docSnap.data()));
-          products = cloudProducts;
-          saveLocalState();
-          renderCategories();
-          renderProductsGrid();
-          if (isAdminLogged) renderAdminTable();
-        }
-        if (badge) badge.textContent = "Firebase Sync";
-      });
-
-      // Escuchar configuración de la campaña
-      onSnapshot(doc(db, "settings", "campaign"), async (docSnap) => {
-        if (docSnap.exists()) {
-          campaignSettings = { ...campaignSettings, ...docSnap.data() };
-          saveLocalState();
-          renderCampaignBanner();
-        } else {
-          await setDoc(doc(db, "settings", "campaign"), campaignSettings);
-        }
-      });
-
-      window.syncProductToFirebase = async (prod) => {
-        await setDoc(doc(db, "products", prod.id), prod);
-      };
-
-      window.deleteProductFromFirebase = async (id) => {
-        await deleteDoc(doc(db, "products", id));
-      };
-
-      window.syncSettingsToFirebase = async (cfg) => {
-        await setDoc(doc(db, "settings", "campaign"), cfg);
-      };
-    } catch (err) {
-      console.warn("Modo local activo:", err);
-    }
   </script>
 </body>
 </html>
