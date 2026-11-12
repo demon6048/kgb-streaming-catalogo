@@ -1,111 +1,3204 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KGB Streaming | Juntos por el Niño Jesús de Paucarbambilla</title>
+  <meta name="description" content="Catálogo oficial de suscripciones digitales de KGB Streaming. Tu entretenimiento suma a nuestra tradición en apoyo a la Cofradía Niño Jesús de Paucarbambilla." />
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  <!-- Google Fonts: Cinzel (Identidad Cofradía), Plus Jakarta Sans & Inter (Identidad KGB Tech) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Cinzel', 'serif'],
+          },
+          colors: {
+            night: {
+              950: '#03050C',
+              900: '#070B19',
+              800: '#0E152D',
+              700: '#162044',
+            },
+            kgb: {
+              cyan: '#06B6D4',
+              cyanLight: '#22D3EE',
+              violet: '#8B5CF6',
+              violetLight: '#A855F7',
+            },
+            cofradia: {
+              burgundy: '#5C0A1E',
+              burgundyLight: '#881337',
+              burgundyDark: '#380511',
+              gold: '#F59E0B',
+              goldLight: '#FDE68A',
+              goldBright: '#FBBF24',
+            },
+            warm: {
+              50: '#FAF8F5',
+              100: '#F3EFEA',
+            },
+            wa: {
+              green: '#25D366',
+              dark: '#128C7E',
+            }
+          }
+        }
+      }
+    }
+  </script>
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
+  <style>
+    :root {
+      --bg-deep: #03050C;
+      --text-warm: #FAF8F5;
+    }
 
-body {
-  margin: 0;
-}
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-warm);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+    /* Fondo atmosférico que fusiona KGB (Cian/Violeta) y Cofradía (Borgoña/Dorado) */
+    .bg-atmosphere {
+      background:
+        radial-gradient(circle at 12% 14%, rgba(6, 182, 212, 0.14) 0%, transparent 38%),
+        radial-gradient(circle at 88% 18%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 42%, rgba(136, 19, 55, 0.18) 0%, transparent 48%),
+        radial-gradient(circle at 80% 85%, rgba(245, 158, 11, 0.09) 0%, transparent 40%),
+        #03050C;
+    }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
+    /* Texto dorado metálico para la identidad de la Cofradía */
+    .text-gold-royal {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FDE68A 28%, #FBBF24 55%, #D97706 85%, #FEF3C7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
+    /* =========================================================================
+       EFECTO FUEGO DE NEÓN / HALO DE ENERGÍA LUMINOSA EN TARJETAS DE PRODUCTOS
+       ========================================================================= */
+    @keyframes neonPulseFlow {
+      0%, 100% {
+        opacity: 0.42;
+        transform: scale(0.99) rotate(0deg);
+      }
+      50% {
+        opacity: 0.68;
+        transform: scale(1.015) rotate(0.5deg);
+      }
+    }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
+    @keyframes borderGradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
-}
+    .product-card-wrapper {
+      position: relative;
+      perspective: 1100px;
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .product-card-wrapper.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Halo trasero inspirado en energía/fuego de neón con el color propio del producto */
+    .product-card-halo {
+      position: absolute;
+      inset: -3px;
+      border-radius: 1.6rem;
+      background: conic-gradient(
+        from 0deg at 50% 50%,
+        var(--card-accent, #06B6D4),
+        rgba(139, 92, 246, 0.45),
+        var(--card-accent, #06B6D4),
+        rgba(245, 158, 11, 0.25),
+        var(--card-accent, #06B6D4)
+      );
+      filter: blur(16px);
+      opacity: 0.32;
+      z-index: 0;
+      transition: opacity 0.4s ease, filter 0.4s ease, inset 0.4s ease;
+      animation: neonPulseFlow 5.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Borde luminoso animado alrededor de la tarjeta */
+    .product-card-border {
+      position: relative;
+      z-index: 1;
+      border-radius: 1.5rem;
+      padding: 1.5px;
+      background: linear-gradient(
+        130deg,
+        var(--card-accent, #06B6D4) 0%,
+        rgba(255, 255, 255, 0.12) 38%,
+        rgba(139, 92, 246, 0.45) 70%,
+        var(--card-accent, #06B6D4) 100%
+      );
+      background-size: 240% 240%;
+      animation: borderGradientFlow 7s ease infinite;
+      transform-style: preserve-3d;
+      transition: transform 0.18s ease-out, box-shadow 0.35s ease;
+      will-change: transform;
+    }
+
+    .product-card-inner {
+      position: relative;
+      border-radius: calc(1.5rem - 1.5px);
+      background: linear-gradient(170deg, rgba(14, 21, 45, 0.96) 0%, rgba(5, 8, 20, 0.99) 100%);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Reflejo luminoso (shimmer) que recorre la tarjeta al interactuar */
+    .product-card-inner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+      );
+      transform: skewX(-24deg);
+      transition: left 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .product-card-wrapper:hover .product-card-inner::after {
+      left: 155%;
+    }
+
+    .product-card-wrapper:hover .product-card-halo {
+      opacity: 0.78;
+      filter: blur(22px);
+      inset: -6px;
+    }
+
+    .product-card-wrapper:hover .product-card-border {
+      box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.8), 0 0 28px -4px var(--card-accent, #06B6D4);
+    }
+
+    /* Ampliación muy sutil de la imagen al interactuar */
+    .product-card-img {
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .product-card-wrapper:hover .product-card-img {
+      transform: scale(1.045);
+    }
+
+    /* Respuesta táctil breve en celulares */
+    .product-card-border:active {
+      transform: scale(0.985) !important;
+    }
+
+    /* =========================================================================
+       ACABADO PREMIUM PARA BOTONES INTERACTIVOS
+       ========================================================================= */
+    .btn-premium {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .btn-premium::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -110%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.6s ease;
+      pointer-events: none;
+    }
+
+    .btn-premium:hover::before {
+      left: 135%;
+    }
+
+    .btn-premium:active {
+      transform: scale(0.96);
+    }
+
+    .btn-premium:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.65);
+    }
+
+    /* Respeto estricto a prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .product-card-wrapper {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #03050C;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #162044;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06B6D4;
+    }
+  </style>
+</head>
+<body class="bg-atmosphere min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- =========================================================================
+       ENCABEZADO PRINCIPAL SIMPLIFICADO (SOLO LOGOS, CATÁLOGO Y CONTACTO)
+       ========================================================================= -->
+  <header class="sticky top-0 z-40 bg-night-950/90 backdrop-blur-xl border-b border-cyan-500/20">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+      <!-- Identidad Dual: Logos Reales KGB Streaming + Niño Jesús -->
+      <a href="#catalogo" onclick="navigateToView('public')" class="flex items-center gap-3 group focus:outline-none">
+        <div class="flex items-center -space-x-1.5">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-night-900 border border-cyan-400/40 p-1 flex items-center justify-center shadow-[0_0_18px_-4px_rgba(6,182,212,0.5)] overflow-hidden z-10"
+               id="headerShieldLogo">
+            <!-- Logo KGB Streaming -->
+          </div>
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-night-900 border border-cofradia-gold/50 p-0.5 flex items-center justify-center shadow-[0_0_18px_-4px_rgba(245,158,11,0.45)] overflow-hidden"
+               id="headerNinoBadge">
+            <!-- Foto Niño Jesús -->
+          </div>
+        </div>
+        <div>
+          <span class="font-heading font-extrabold text-base sm:text-xl tracking-tight text-warm-50 block leading-none">
+            KGB <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">STREAMING</span>
+          </span>
+          <span class="text-[11px] text-cofradia-goldLight font-medium hidden sm:inline-block mt-1" data-bind="campaignName">
+            Juntos por el Niño Jesús de Paucarbambilla
+          </span>
+        </div>
+      </a>
+
+      <!-- Únicamente los 2 botones solicitados: Catálogo y Contacto -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <a href="#catalogo" onclick="navigateToView('public')"
+           class="btn-premium inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-night-800 hover:bg-night-700 text-cyan-300 border border-cyan-500/30">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Catálogo</span>
+        </a>
+
+        <a href="#" data-wa-general target="_blank" rel="noopener noreferrer"
+           class="btn-premium inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-emerald-500 to-wa-green text-slate-950 shadow-[0_0_20px_-5px_rgba(37,211,102,0.55)]">
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>Contacto</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+        ÁREA 1: VISTA PÚBLICA DIRECTA AL CATÁLOGO DE CUENTAS
+       ========================================================================= -->
+  <main id="publicView" class="flex-1">
+
+    <!-- -----------------------------------------------------------------------
+         CATÁLOGO DE PRODUCTOS (DIRECTO AL ENTRAR, CON CINTILLO DISCRETO DE LOGOS)
+         ----------------------------------------------------------------------- -->
+    <section id="catalogo" class="py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[1440px] mx-auto">
+
+        <!-- Cintillo compacto y elegante con las 2 fotos oficiales bien acomodadas -->
+        <div class="mb-7 rounded-2xl bg-gradient-to-r from-night-900 via-night-800/90 to-cofradia-burgundyDark/50 border border-slate-800/90 p-4 sm:px-6 sm:py-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
+          <div class="flex items-center gap-3.5 sm:gap-4 w-full md:w-auto">
+            <div class="flex items-center gap-2 shrink-0">
+              <div id="bannerKgbLogo" class="w-12 h-12 sm:w-15 sm:h-15 rounded-2xl bg-night-950 border border-cyan-500/40 p-1.5 flex items-center justify-center shadow-md overflow-hidden"></div>
+              <div id="bannerNinoPhoto" class="w-12 h-12 sm:w-15 sm:h-15 rounded-2xl bg-night-950 border border-cofradia-gold/50 p-1 flex items-center justify-center shadow-md overflow-hidden"></div>
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400">Catálogo Oficial</span>
+                <span class="text-slate-600 hidden sm:inline">&bull;</span>
+                <span class="text-xs font-display font-bold text-cofradia-goldLight" data-bind="campaignName">
+                  Juntos por el Niño Jesús de Paucarbambilla
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed" data-bind="campaignMessage">
+                Con tus compras en esta campaña, KGB Streaming destina el 40% de la ganancia a la Cofradía Niño Jesús de Paucarbambilla.
+              </p>
+            </div>
+          </div>
+
+          <!-- Buscador integrado directamente en la cabecera del catálogo -->
+          <div class="w-full md:w-72 relative shrink-0">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-cyan-400 text-xs pointer-events-none"></i>
+            <input type="search" id="searchCatalogInput" oninput="handleCatalogFilterChange()"
+                   placeholder="Buscar cuenta o plataforma..."
+                   aria-label="Buscar servicio o plan en el catálogo"
+                   class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-night-950/90 border border-slate-700/80 text-xs sm:text-sm text-warm-50 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/30 transition" />
+          </div>
+        </div>
+
+        <!-- Filtros por Categoría -->
+        <div id="categoryPillsContainer" class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar" role="tablist" aria-label="Filtrar por categoría">
+          <!-- Renderizado dinámico de píldoras de categoría -->
+        </div>
+
+        <!-- Cuadrícula Adaptable de 4 Tarjetas por Línea en PC y 1 en Celular -->
+        <div id="publicCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
+          <!-- Tarjetas renderizadas dinámicamente -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       ÁREA 2: RUTA PRIVADA /ADMIN (INICIO DE SESIÓN Y PANEL DE ADMINISTRACIÓN)
+       ========================================================================= -->
+  <section id="adminView" class="hidden flex-1 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- PANTALLA DE INICIO DE SESIÓN (/admin) -->
+      <div id="adminLoginBox" class="max-w-md mx-auto my-8 bg-night-900/95 border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-[0_0_40px_-10px_rgba(6,182,212,0.35)]">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300 text-lg">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <h2 class="font-heading text-lg font-extrabold text-warm-50">Acceso Administrador</h2>
+              <p class="text-xs text-slate-400">Ruta privada <code class="text-cyan-300">/admin</code> &bull; KGB Streaming</p>
+            </div>
+          </div>
+          <button type="button" onclick="navigateToView('public')"
+                  class="text-xs text-slate-400 hover:text-warm-50 px-2.5 py-1.5 rounded-lg bg-night-800">
+            Volver
+          </button>
+        </div>
+
+        <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+          <div>
+            <label for="adminUserField" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Usuario
+            </label>
+            <input type="text" id="adminUserField" required value="admin"
+                   class="w-full px-4 py-3 rounded-xl bg-night-950 border border-slate-700 text-sm text-warm-50 focus:outline-none focus:border-cyan-400" />
+          </div>
+
+          <div>
+            <label for="adminPassField" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              Contraseña
+            </label>
+            <input type="password" id="adminPassField" required value="kgb2026"
+                   class="w-full px-4 py-3 rounded-xl bg-night-950 border border-slate-700 text-sm text-warm-50 focus:outline-none focus:border-cyan-400" />
+            <p class="text-[11px] text-slate-400 mt-1.5">
+              Credenciales predeterminadas: usuario <code class="text-cyan-300">admin</code> / clave <code class="text-cyan-300">kgb2026</code>
+            </p>
+          </div>
+
+          <div id="adminLoginError" class="hidden p-3 rounded-xl bg-rose-500/15 border border-rose-500/40 text-xs text-rose-300">
+            Credenciales incorrectas. Verifica el usuario y contraseña.
+          </div>
+
+          <button type="submit"
+                  class="btn-premium w-full py-3.5 px-5 rounded-xl font-heading font-bold text-sm text-slate-950 bg-gradient-to-r from-cyan-400 to-violet-400 shadow-lg">
+            <i class="fa-solid fa-right-to-bracket mr-1.5"></i>Ingresar al Panel Privado
+          </button>
+        </form>
+      </div>
+
+      <!-- PANEL DE GESTIÓN COMPLETA DE CATÁLOGO Y CAMPAÑA -->
+      <div id="adminDashboardBox" class="hidden space-y-8">
+
+        <!-- Barra Superior del Administrador -->
+        <div class="p-5 sm:p-6 rounded-3xl bg-night-900/95 border border-cyan-500/35 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 text-xl">
+              <i class="fa-solid fa-Boxes-stacked fa-cubes"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  /admin activo
+                </span>
+                <span id="firebaseSyncStatusBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                  <i class="fa-solid fa-cloud-arrow-up mr-1"></i>Firebase Conectando...
+                </span>
+              </div>
+              <p class="text-xs text-cofradia-goldLight mt-0.5" data-bind="campaignName">
+                Juntos por el Niño Jesús de Paucarbambilla
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button type="button" onclick="openProductEditorModal()"
+                    class="btn-premium inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-950 bg-gradient-to-r from-cyan-400 to-violet-400 shadow">
+              <i class="fa-solid fa-plus"></i>
+              <span>Agregar Plataforma o Plan</span>
+            </button>
+
+            <button type="button" onclick="exportCatalogJson()"
+                    class="btn-premium inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-night-800 hover:bg-night-700 text-cyan-300 border border-cyan-500/30">
+              <i class="fa-solid fa-file-export"></i>
+              <span>Exportar JSON</span>
+            </button>
+
+            <button type="button" onclick="navigateToView('public')"
+                    class="btn-premium inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-night-800 hover:bg-night-700 text-warm-50 border border-slate-700">
+              <i class="fa-solid fa-eye text-cyan-400"></i>
+              <span>Ver Catálogo Público</span>
+            </button>
+
+            <button type="button" onclick="handleAdminLogout()"
+                    class="btn-premium inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-semibold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30">
+              <i class="fa-solid fa-power-off"></i>
+              <span>Salir</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pestañas internas de Administración -->
+        <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-3">
+          <button type="button" onclick="switchAdminSubTab('products')" id="adminSubTabBtn-products"
+                  class="px-4 py-2.5 rounded-xl text-xs font-bold bg-cyan-400 text-slate-950 transition">
+            <i class="fa-solid fa-layer-group mr-1.5"></i>Productos del Catálogo (<span id="adminTotalProductsCount">0</span>)
+          </button>
+          <button type="button" onclick="switchAdminSubTab('settings')" id="adminSubTabBtn-settings"
+                  class="px-4 py-2.5 rounded-xl text-xs font-bold bg-night-800 text-slate-300 hover:bg-night-700 transition">
+            <i class="fa-solid fa-sliders mr-1.5"></i>Mensaje de Campaña, Imágenes y WhatsApp
+          </button>
+          <button type="button" onclick="switchAdminSubTab('deploy')" id="adminSubTabBtn-deploy"
+                  class="px-4 py-2.5 rounded-xl text-xs font-bold bg-night-800 text-slate-300 hover:bg-night-700 transition">
+            <i class="fa-brands fa-github mr-1.5"></i>Despliegue GitHub + Vercel
+          </button>
+        </div>
+
+        <!-- SUB-TAB 1: LISTA Y GESTIÓN DE PRODUCTOS -->
+        <div id="adminSubTab-products" class="space-y-4">
+          <div class="overflow-x-auto rounded-3xl bg-night-900/90 border border-slate-800 shadow-xl">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-night-950 text-slate-400 border-b border-slate-800 text-[11px] uppercase tracking-wider">
+                  <th class="py-3.5 px-4">Orden</th>
+                  <th class="py-3.5 px-4">Miniatura / Halo</th>
+                  <th class="py-3.5 px-4">Plataforma y Plan</th>
+                  <th class="py-3.5 px-4">Categoría</th>
+                  <th class="py-3.5 px-4">Precio / Duración</th>
+                  <th class="py-3.5 px-4">Disponibilidad</th>
+                  <th class="py-3.5 px-4 text-center">Destacado</th>
+                  <th class="py-3.5 px-4 text-center">Publicado</th>
+                  <th class="py-3.5 px-4 text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsTableBody" class="divide-y divide-slate-800/70">
+                <!-- Filas generadas dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SUB-TAB 2: CONFIGURACIÓN DE CAMPAÑA, MENSAJE EDITABLE E IMÁGENES -->
+        <div id="adminSubTab-settings" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Mensaje de campaña y WhatsApp -->
+          <div class="p-6 rounded-3xl bg-night-900/90 border border-cofradia-gold/35 space-y-4">
+            <h3 class="font-heading text-base font-bold text-cofradia-goldLight flex items-center gap-2">
+              <i class="fa-solid fa-bullhorn text-cofradia-goldBright"></i>
+              <span>Textos Oficiales y Mensaje de Campaña</span>
+            </h3>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Nombre de la Campaña</label>
+              <input type="text" id="cfgCampaignName"
+                     class="w-full px-4 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-sm text-warm-50 focus:border-cyan-400 focus:outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Frase Principal de Portada</label>
+              <input type="text" id="cfgHeroHeadline"
+                     class="w-full px-4 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-sm text-warm-50 focus:border-cyan-400 focus:outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-cofradia-goldLight mb-1">
+                Mensaje Breve de Campaña (Editable)
+              </label>
+              <textarea id="cfgCampaignMessage" rows="3"
+                        class="w-full px-4 py-2.5 rounded-xl bg-night-950 border border-cofradia-gold/40 text-sm text-warm-50 focus:border-cofradia-goldBright focus:outline-none"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">WhatsApp Visible</label>
+                <input type="text" id="cfgWhatsappDisplay"
+                       class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-warm-50" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Número para Enlaces (wa.me)</label>
+                <input type="text" id="cfgWhatsappNumber"
+                       class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-cyan-300 font-mono" />
+              </div>
+            </div>
+
+            <button type="button" onclick="saveCampaignSettingsFromAdmin()"
+                    class="btn-premium w-full py-3 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-cofradia-goldBright to-amber-500 text-slate-950">
+              <i class="fa-solid fa-floppy-disk mr-1.5"></i>Guardar Configuración de Campaña
+            </button>
+          </div>
+
+          <!-- Recursos visuales de la campaña (Escudo KGB, Niño Jesús y Danzantes) -->
+          <div class="p-6 rounded-3xl bg-night-900/90 border border-cyan-500/30 space-y-4">
+            <h3 class="font-heading text-base font-bold text-cyan-300 flex items-center gap-2">
+              <i class="fa-solid fa-images"></i>
+              <span>Imágenes de Marca y Cofradía</span>
+            </h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Puedes usar las ilustraciones oficiales integradas o pegar la URL / subir las fotografías del Escudo de KGB Streaming, del Niño Jesús de Paucarbambilla y de los Danzantes.
+            </p>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">URL o Imagen del Escudo KGB Streaming</label>
+              <input type="text" id="cfgKgbLogoUrl" placeholder="Vacío = Escudo vectorial oficial integrado"
+                     class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-warm-50" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">URL o Imagen del Niño Jesús de Paucarbambilla</label>
+              <input type="text" id="cfgNinoImageUrl" placeholder="Vacío = Composición sagrada completa integrada"
+                     class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-warm-50" />
+            </div>
+
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <label class="block text-xs font-semibold text-cofradia-goldLight">
+                Restaurar Catálogo Inicial o Importar Respaldo JSON
+              </label>
+              <div class="flex flex-wrap gap-2">
+                <label class="btn-premium cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-night-800 hover:bg-night-700 text-cyan-300 border border-cyan-500/30">
+                  <i class="fa-solid fa-file-import"></i>
+                  <span>Importar JSON</span>
+                  <input type="file" accept=".json" onchange="importCatalogJson(event)" class="hidden" />
+                </label>
+
+                <button type="button" onclick="saveCampaignSettingsFromAdmin()"
+                        class="btn-premium px-4 py-2 rounded-xl text-xs font-bold bg-cyan-400 text-slate-950">
+                  Aplicar Imágenes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-TAB 3: GUÍA DE SUBIDA A GITHUB Y DESPLIEGUE EN VERCEL -->
+        <div id="adminSubTab-deploy" class="hidden">
+          <div class="p-6 rounded-3xl bg-night-900/90 border border-slate-800 space-y-4">
+            <h3 class="font-heading text-lg font-bold text-warm-50 flex items-center gap-2">
+              <i class="fa-brands fa-github text-xl"></i>
+              <span>Listo para GitHub y Vercel (Zero-Config Deployment)</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Esta aplicación está empaquetada con arquitectura limpia y autocontenida en <code class="text-cyan-300">index.html</code>. Para desplegarla en producción en menos de 1 minuto:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div class="p-4 rounded-2xl bg-night-950 border border-slate-800 space-y-1.5">
+                <span class="text-cyan-400 font-bold uppercase">Paso 1 &bull; Repositorio GitHub</span>
+                <p class="text-slate-300">Sube este archivo <code class="text-warm-50">index.html</code> a la raíz de tu repositorio en GitHub.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-night-950 border border-slate-800 space-y-1.5">
+                <span class="text-violet-400 font-bold uppercase">Paso 2 &bull; Conectar Vercel</span>
+                <p class="text-slate-300">En <code class="text-warm-50">vercel.com/new</code>, importa el repositorio con el preset <strong>Other / Static</strong>.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-night-950 border border-slate-800 space-y-1.5">
+                <span class="text-cofradia-goldBright font-bold uppercase">Paso 3 &bull; Administración</span>
+                <p class="text-slate-300">Accede a <code class="text-warm-50">tudominio.vercel.app/#/admin</code> para gestionar productos o exportar cambios.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       PIE DE PÁGINA RESUMIDO Y LIMPIO (CON ACCESO ADMIN OCULTO)
+       ========================================================================= -->
+  <footer class="mt-auto bg-night-950 border-t border-slate-800/80 py-6 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+
+      <!-- Logos + Resumen breve -->
+      <div class="flex items-center gap-3 text-center sm:text-left">
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-night-900 border border-cyan-400/30 p-1 flex items-center justify-center overflow-hidden" id="footerShieldLogo"></div>
+          <div class="w-10 h-10 rounded-xl bg-night-900 border border-cofradia-gold/40 p-0.5 flex items-center justify-center overflow-hidden" id="footerNinoLogo"></div>
+        </div>
+        <div>
+          <p class="text-xs sm:text-sm font-bold text-warm-50">
+            KGB Streaming &bull; <span class="text-cofradia-goldLight font-display" data-bind="campaignName">Juntos por el Niño Jesús de Paucarbambilla</span>
+          </p>
+          <p class="text-[11px] text-slate-400">
+            40% de la ganancia destinada en apoyo a nuestra cofradía.
+          </p>
+        </div>
+      </div>
+
+      <!-- WhatsApp directo + Acceso Admin Oculto -->
+      <div class="flex items-center gap-3">
+        <a href="#" data-wa-general target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-wa-green transition">
+          <i class="fa-brands fa-whatsapp text-wa-green text-sm"></i>
+          <span class="font-mono" data-bind="whatsappDisplay">+51 989 631 010</span>
+        </a>
+
+        <!-- Botón de administrador oculto/discreto (también accesible vía URL #/admin) -->
+        <button type="button" onclick="navigateToView('admin')"
+                aria-label="Administración"
+                title="Acceso interno"
+                class="w-6 h-6 rounded-lg flex items-center justify-center text-slate-800 hover:text-slate-500 transition opacity-25 hover:opacity-100">
+          <i class="fa-solid fa-lock text-[10px]"></i>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       VENTANA MODAL DE DETALLES DEL PRODUCTO (AMPLIA, GALERÍA, REGLAS Y ESCAPE/FOCO)
+       ========================================================================= -->
+  <div id="productDetailModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="detailModalTitle"
+       class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md transition-opacity duration-300 opacity-0">
+    <!-- Contenedor del Modal -->
+    <div id="productDetailDialog"
+         class="relative w-full max-w-4xl bg-night-900 border-2 rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col transform scale-95 transition-transform duration-300"
+         style="border-color: var(--modal-accent, #06B6D4);">
+
+      <!-- Botón Cerrar Visible -->
+      <button type="button" id="closeDetailModalBtn" onclick="closeProductDetailModal()"
+              aria-label="Cerrar ventana de detalles"
+              class="btn-premium absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-night-950/90 hover:bg-night-800 text-warm-50 border border-slate-700 flex items-center justify-center shadow-lg">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Cuerpo Desplazable en Celular / 2 Columnas en Computadora -->
+      <div class="overflow-y-auto p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+
+        <!-- Columna Izquierda: Imagen Completa o Galería del Producto -->
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div id="detailMainImageContainer" class="relative rounded-2xl overflow-hidden bg-night-950 border border-slate-800 aspect-[4/3] flex items-center justify-center">
+              <!-- Imagen principal o arte publicitario -->
+            </div>
+
+            <!-- Miniaturas de Galería (si el producto tiene varias imágenes) -->
+            <div id="detailGalleryThumbs" class="flex items-center gap-2 overflow-x-auto pb-1"></div>
+          </div>
+
+          <!-- Tarjeta de Aporte Solidario dentro del Modal -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-cofradia-burgundy/50 to-night-950 border border-cofradia-gold/40">
+            <div class="flex items-center gap-2.5">
+              <i class="fa-solid fa-crown text-cofradia-goldBright text-base"></i>
+              <span class="font-display text-xs font-bold text-cofradia-goldLight uppercase tracking-wider" data-bind="campaignName">
+                Juntos por el Niño Jesús de Paucarbambilla
+              </span>
+            </div>
+            <p class="text-xs text-slate-200 mt-1.5 leading-relaxed" data-bind="campaignMessage">
+              Con tus compras en esta campaña, KGB Streaming destina el 40% de la ganancia a la Cofradía Niño Jesús de Paucarbambilla.
+            </p>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Información Completa, Características y Reglas -->
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-5">
+          <div class="space-y-4">
+            <!-- Badges superiores: Categoría, Etiqueta y Disponibilidad -->
+            <div class="flex flex-wrap items-center gap-2 pr-10">
+              <span id="detailCategoryBadge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-night-800 text-cyan-300 border border-cyan-500/30"></span>
+              <span id="detailCustomBadge" class="hidden px-3 py-1 rounded-full text-xs font-bold bg-cofradia-gold/20 text-cofradia-goldLight border border-cofradia-gold/40"></span>
+              <span id="detailAvailabilityBadge" class="px-3 py-1 rounded-full text-xs font-bold"></span>
+            </div>
+
+            <!-- Nombre de Plataforma y Plan -->
+            <div>
+              <h2 id="detailModalTitle" class="font-heading text-2xl sm:text-3xl font-extrabold text-warm-50 leading-tight"></h2>
+              <p id="detailFullDescription" class="text-sm text-slate-300 mt-2 leading-relaxed"></p>
+            </div>
+
+            <!-- Bloque de Precio Destacado y Duración -->
+            <div class="p-4 rounded-2xl bg-night-950 border border-slate-800/90 flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <span class="text-xs text-slate-400 uppercase tracking-wider block">Precio Publicado</span>
+                <div class="flex items-baseline gap-2 mt-0.5">
+                  <span id="detailPriceValue" class="font-heading text-3xl font-extrabold text-warm-50">S/ 15.00</span>
+                  <span class="text-xs text-slate-400 font-medium">/ <span id="detailDurationValue">1 mes</span></span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-[11px] text-emerald-400 font-semibold block">
+                  <i class="fa-brands fa-whatsapp mr-1"></i>Coordinación directa
+                </span>
+                <span class="text-xs text-slate-400" data-bind="whatsappDisplay">+51 989 631 010</span>
+              </div>
+            </div>
+
+            <!-- Características del Servicio -->
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-300 mb-2.5 flex items-center gap-2">
+                <i class="fa-solid fa-star text-[11px]"></i>
+                <span>Características Incluidas</span>
+              </h3>
+              <ul id="detailFeaturesList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-200"></ul>
+            </div>
+
+            <!-- Sección Claramente Identificada: Reglas y Condiciones Específicas -->
+            <div class="p-4 rounded-2xl bg-night-950/95 border border-amber-500/35 space-y-2.5">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2">
+                <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                <span>Reglas y Condiciones del Servicio</span>
+              </h3>
+              <ul id="detailRulesList" class="space-y-1.5 text-xs text-slate-300 leading-relaxed"></ul>
+            </div>
+          </div>
+
+          <!-- Botones de Acción: Agregar al Carrito (Combo) o Comprar Directo -->
+          <div class="pt-3 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button type="button" id="detailAddToCartBtn"
+                    class="btn-premium w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-2xl font-heading font-extrabold text-sm text-slate-950 bg-gradient-to-r from-cyan-400 to-violet-400 shadow-lg">
+              <i class="fa-solid fa-cart-plus text-lg"></i>
+              <span>Agregar a mi Combo / Carrito</span>
+            </button>
+
+            <a href="#" id="detailWhatsappActionBtn"
+               class="btn-premium group w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-2xl font-heading font-extrabold text-sm text-slate-950 bg-gradient-to-r from-emerald-400 via-wa-green to-emerald-500 shadow-[0_0_25px_-5px_rgba(37,211,102,0.6)]">
+              <i class="fa-brands fa-whatsapp text-xl transition-transform duration-300 group-hover:scale-110"></i>
+              <span>Comprar solo este ahora</span>
+          <!-- Botones de Acción: Agregar al Carrito o Comprar Directo -->
+          <div class="pt-3 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button type="button" id="detailAddToCartBtn"
+                    class="btn-premium w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-2xl font-heading font-extrabold text-sm text-slate-950 bg-gradient-to-r from-cyan-400 to-violet-400 shadow-lg">
+              <i class="fa-solid fa-cart-plus text-lg"></i>
+              <span>Agregar al Carrito</span>
+            </button>
+
+            <a href="#" id="detailWhatsappActionBtn"
+               class="btn-premium group w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-2xl font-heading font-extrabold text-sm text-slate-950 bg-gradient-to-r from-emerald-400 via-wa-green to-emerald-500 shadow-[0_0_25px_-5px_rgba(37,211,102,0.6)]">
+              <i class="fa-brands fa-whatsapp text-xl transition-transform duration-300 group-hover:scale-110"></i>
+              <span>Comprar ahora por WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       BOTÓN FLOTANTE DEL CARRITO DE COMPRAS
+       ========================================================================= -->
+  <button type="button" id="floatingCartButton" onclick="openCartDrawer()"
+          aria-label="Abrir carrito de compras"
+          class="btn-premium fixed bottom-5 right-5 z-40 flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-night-900 via-night-800 to-night-900 border-2 border-cyan-400/70 text-warm-50 shadow-[0_0_30px_-5px_rgba(6,182,212,0.65)] hover:border-cofradia-goldBright">
+    <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-slate-950 font-extrabold">
+      <i class="fa-solid fa-cart-shopping text-base"></i>
+      <span id="floatingCartBadge"
+            class="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1 rounded-full bg-cofradia-goldBright text-slate-950 font-heading font-black text-xs flex items-center justify-center border-2 border-night-950 shadow">
+        0
+      </span>
+    </div>
+    <div class="text-left pr-1">
+      <span class="block text-[10px] font-bold uppercase tracking-wider text-cyan-300 leading-none">Mi Carrito</span>
+      <span id="floatingCartTotalText" class="font-heading font-extrabold text-sm sm:text-base text-warm-50">S/ 0.00</span>
+    </div>
+  </button>
+
+  <!-- =========================================================================
+       DRAWER / PANEL LATERAL DEL CARRITO DE COMPRAS
+       ========================================================================= -->
+  <div id="cartDrawerModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="cartDrawerTitle"
+       class="fixed inset-0 z-50 hidden justify-end bg-black/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-md bg-night-900 border-l border-cyan-500/40 h-full flex flex-col justify-between shadow-2xl">
+
+      <!-- Cabecera del Carrito -->
+      <div class="p-5 bg-night-950/90 border-b border-slate-800 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+          <div>
+            <h3 id="cartDrawerTitle" class="font-heading text-base sm:text-lg font-extrabold text-warm-50">
+              Tu Carrito de Compras
+            </h3>
+            <p class="text-[11px] text-cofradia-goldLight" data-bind="campaignName">
+              Juntos por el Niño Jesús de Paucarbambilla
+            </p>
+          </div>
+        </div>
+        <button type="button" onclick="closeCartDrawer()"
+                class="w-9 h-9 rounded-full bg-night-800 text-slate-300 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Mensaje Solidario de la Campaña -->
+      <div class="px-5 pt-4">
+        <div class="p-3.5 rounded-2xl bg-gradient-to-r from-cofradia-burgundy/60 via-night-800 to-night-900 border border-cofradia-gold/40 space-y-1">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-cofradia-goldLight">
+            <i class="fa-solid fa-hand-holding-heart text-cofradia-goldBright"></i>
+            <span>Apoyo directo a nuestra Cofradía</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-snug">
+            Puedes elegir varias plataformas en un solo pedido. El 40% de la ganancia se destina íntegramente a la Cofradía Niño Jesús de Paucarbambilla.
+          </p>
+        </div>
+      </div>
+
+      <!-- Lista de Productos Seleccionados -->
+      <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-5 space-y-3">
+        <!-- Items renderizados dinámicamente -->
+      </div>
+
+      <!-- Pie del Carrito: Totales, Nombre Opcional y Botón de Pago -->
+      <div class="p-5 bg-night-950 border-t border-slate-800 space-y-4">
+        <div>
+          <label for="cartCustomerName" class="block text-[11px] font-semibold text-slate-300 mb-1">
+            Tu Nombre (Opcional para tu pedido y voucher)
+          </label>
+          <input type="text" id="cartCustomerName" placeholder="Ej. Juan Pérez"
+                 class="w-full px-3.5 py-2 rounded-xl bg-night-900 border border-slate-700 text-xs sm:text-sm text-warm-50 placeholder-slate-500 focus:border-cyan-400 focus:outline-none" />
+        </div>
+
+        <div class="space-y-1.5 text-xs sm:text-sm border-t border-slate-800/80 pt-3">
+          <div class="flex justify-between text-slate-400">
+            <span>Servicios seleccionados (<span id="cartSummaryCount">0</span>)</span>
+            <span id="cartSummarySubtotal" class="font-mono">S/ 0.00</span>
+          </div>
+          <div class="flex justify-between items-baseline text-base sm:text-lg font-heading font-extrabold text-warm-50 pt-1 border-t border-slate-800">
+            <span>Total a Pagar</span>
+            <span id="cartSummaryTotal" class="text-xl sm:text-2xl text-emerald-400">S/ 0.00</span>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <button type="button" onclick="clearShoppingCart()"
+                  class="px-3.5 py-3 rounded-xl text-xs font-semibold bg-night-800 hover:bg-night-700 text-slate-300 border border-slate-700"
+                  title="Vaciar carrito">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+          <button type="button" onclick="initiateVerifiedWhatsAppCheckout()"
+                  class="btn-premium flex-1 py-3.5 px-5 rounded-xl font-heading font-extrabold text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-emerald-400 via-wa-green to-emerald-500 shadow-[0_0_25px_-5px_rgba(37,211,102,0.65)] flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Pagar y Procesar Pedido</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL DE REDIRECCIÓN AL NÚMERO VERIFICADO DE LA COFRADÍA Y KGB STREAMING
+       ========================================================================= -->
+  <div id="verifiedRedirectModal"
+       role="dialog"
+       aria-modal="true"
+       class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+    <div class="bg-night-900 border-2 border-emerald-400/60 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-[0_0_50px_-10px_rgba(37,211,102,0.5)] text-center space-y-5 relative overflow-hidden">
+
+      <!-- Logos Oficiales -->
+      <div class="flex items-center justify-center gap-3">
+        <div id="redirectKgbLogo" class="w-14 h-14 rounded-2xl bg-night-950 border border-cyan-400/40 p-1.5 flex items-center justify-center overflow-hidden shadow-md"></div>
+        <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400">
+          <i class="fa-solid fa-shield-check fa-check"></i>
+        </div>
+        <div id="redirectNinoLogo" class="w-14 h-14 rounded-2xl bg-night-950 border border-cofradia-gold/50 p-1 flex items-center justify-center overflow-hidden shadow-md"></div>
+      </div>
+
+      <!-- Etiqueta de Número Verificado -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs font-bold">
+        <i class="fa-solid fa-circle-check text-emerald-400 animate-pulse"></i>
+        <span>Número Oficial Verificado: <strong class="font-mono" data-bind="whatsappDisplay">+51 989 631 010</strong></span>
+      </div>
+
+      <!-- Mensaje Solicitado por el Usuario -->
+      <div class="space-y-2">
+        <h3 class="font-heading text-lg sm:text-xl font-extrabold text-warm-50 leading-snug">
+          Te estamos redirigiendo al número verificado de la cofradía para procesar tu pago
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          Tu pedido de <strong class="text-cyan-300">KGB Streaming</strong> apoya a la campaña <strong class="text-cofradia-goldLight" data-bind="campaignName">Juntos por el Niño Jesús de Paucarbambilla</strong>.
+        </p>
+      </div>
+
+      <!-- Resumen compacto del pedido a enviar -->
+      <div id="redirectOrderPreviewBox" class="p-3.5 rounded-2xl bg-night-950 border border-slate-800 text-left text-xs space-y-1.5">
+        <!-- Se llena dinámicamente antes de abrir WhatsApp -->
+      </div>
+
+      <!-- Barra de progreso de redirección -->
+      <div class="w-full h-2 rounded-full bg-night-950 overflow-hidden border border-slate-800">
+        <div id="redirectProgressBar" class="h-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-wa-green transition-all duration-300" style="width: 15%;"></div>
+      </div>
+
+      <!-- Botones de Acción Directa -->
+      <div class="flex flex-col sm:flex-row gap-2.5 pt-1">
+        <button type="button" onclick="closeVerifiedRedirectModal()"
+                class="px-4 py-3 rounded-xl text-xs font-semibold bg-night-800 hover:bg-night-700 text-slate-300">
+          Volver al carrito
+        </button>
+        <a href="#" id="redirectManualWhatsappLink" target="_blank" rel="noopener noreferrer"
+           onclick="setTimeout(closeVerifiedRedirectModal, 600)"
+           class="btn-premium flex-1 py-3 px-5 rounded-xl font-heading font-extrabold text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-emerald-400 to-wa-green flex items-center justify-center gap-2 shadow-lg">
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>Continuar al WhatsApp Ahora</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL DEL ADMINISTRADOR PARA AGREGAR / EDITAR PRODUCTO
+       ========================================================================= -->
+  <div id="adminProductModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="adminProductModalTitle"
+       class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="bg-night-900 border border-cyan-500/40 rounded-3xl max-w-3xl w-full p-5 sm:p-7 shadow-2xl max-h-[92vh] overflow-y-auto relative">
+      <button type="button" onclick="closeProductEditorModal()"
+              class="btn-premium absolute top-4 right-4 w-9 h-9 rounded-full bg-night-800 text-slate-300 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 id="adminProductModalTitle" class="font-heading text-xl font-extrabold text-warm-50 mb-1">
+        Agregar Plataforma o Plan
+      </h3>
+      <p class="text-xs text-slate-400 mb-5">
+        Configura los datos, reglas, imágenes y el color del efecto neón de la tarjeta.
+      </p>
+
+      <form id="adminProductForm" onsubmit="saveProductFromAdmin(event)" class="space-y-4 text-xs sm:text-sm">
+        <input type="hidden" id="editProdId" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Plataforma *</label>
+            <input type="text" id="editProdPlatform" required placeholder="Ej. Netflix o Gemini"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Plan / Modalidad *</label>
+            <input type="text" id="editProdPlan" required placeholder="Ej. Plan individual"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Categoría *</label>
+            <select id="editProdCategory"
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none">
+              <option value="Streaming">Streaming</option>
+              <option value="Licencias">Licencias</option>
+              <option value="IA">IA</option>
+              <option value="Zona Gamer">Zona Gamer</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Precio (S/) *</label>
+            <input type="number" step="0.50" min="1" id="editProdPrice" required placeholder="15.00"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Duración *</label>
+            <input type="text" id="editProdDuration" required placeholder="Ej. 1 mes"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Disponibilidad</label>
+            <select id="editProdAvailability"
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none">
+              <option value="Disponible">Disponible</option>
+              <option value="Últimas unidades">Últimas unidades</option>
+              <option value="Alta demanda">Alta demanda</option>
+              <option value="Agotado temporalmente">Agotado temporalmente</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Etiqueta Opcional</label>
+            <input type="text" id="editProdBadge" placeholder="Ej. Destacado / Más vendido"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Selector de Color de Efecto Neón + Opciones de Visibilidad -->
+        <div class="p-4 rounded-2xl bg-night-950 border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+          <div>
+            <label class="block text-xs font-bold text-cyan-300 mb-1">Color del Halo Neón</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="editProdAccentColor" value="#06B6D4"
+                     class="w-10 h-10 rounded-lg bg-transparent border border-slate-700 cursor-pointer" />
+              <div class="flex flex-wrap gap-1.5">
+                <button type="button" onclick="setNeonColorPreset('#E50914')" class="w-5 h-5 rounded-full bg-[#E50914] border border-white/30" title="Rojo Netflix"></button>
+                <button type="button" onclick="setNeonColorPreset('#06B6D4')" class="w-5 h-5 rounded-full bg-[#06B6D4] border border-white/30" title="Cian KGB"></button>
+                <button type="button" onclick="setNeonColorPreset('#8B5CF6')" class="w-5 h-5 rounded-full bg-[#8B5CF6] border border-white/30" title="Violeta Eléctrico"></button>
+                <button type="button" onclick="setNeonColorPreset('#10B981')" class="w-5 h-5 rounded-full bg-[#10B981] border border-white/30" title="Verde Spotify"></button>
+                <button type="button" onclick="setNeonColorPreset('#F59E0B')" class="w-5 h-5 rounded-full bg-[#F59E0B] border border-white/30" title="Dorado Cofradía"></button>
+                <button type="button" onclick="setNeonColorPreset('#3B82F6')" class="w-5 h-5 rounded-full bg-[#3B82F6] border border-white/30" title="Azul Gemini"></button>
+              </div>
+            </div>
+          </div>
+
+          <label class="flex items-center gap-2.5 cursor-pointer select-none">
+            <input type="checkbox" id="editProdFeatured" class="w-4 h-4 accent-amber-400 rounded" />
+            <span class="text-xs font-semibold text-cofradia-goldLight">Marcar como Destacado</span>
+          </label>
+
+          <label class="flex items-center gap-2.5 cursor-pointer select-none">
+            <input type="checkbox" id="editProdPublished" checked class="w-4 h-4 accent-cyan-400 rounded" />
+            <span class="text-xs font-semibold text-emerald-300">Publicado en el catálogo</span>
+          </label>
+        </div>
+
+        <!-- Descripción Breve y Completa -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Descripción Breve (Tarjeta) *</label>
+            <textarea id="editProdShortDesc" required rows="2" placeholder="Resumen atractivo para la tarjeta..."
+                      class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none"></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Descripción Completa (Modal) *</label>
+            <textarea id="editProdFullDesc" required rows="2" placeholder="Detalle completo del servicio..."
+                      class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-warm-50 focus:border-cyan-400 focus:outline-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Gestión de Imágenes (Agregar, Reemplazar y Quitar) -->
+        <div class="p-4 rounded-2xl bg-night-950 border border-slate-800 space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <label class="text-xs font-bold text-cyan-300">
+              <i class="fa-regular fa-images mr-1"></i>Imágenes del Producto (URLs o Subir Archivo)
+            </label>
+            <label class="cursor-pointer text-[11px] font-semibold text-cyan-300 hover:underline">
+              <i class="fa-solid fa-upload mr-1"></i>Subir imagen desde tu equipo
+              <input type="file" accept="image/*" onchange="handleProductImageUpload(event)" class="hidden" />
+            </label>
+          </div>
+          <div class="flex gap-2">
+            <input type="url" id="newImageUrlInput" placeholder="Pegar enlace https://... de imagen y pulsar Añadir"
+                   class="flex-1 px-3 py-2 rounded-xl bg-night-900 border border-slate-700 text-xs text-warm-50" />
+            <button type="button" onclick="addProductImageUrlToList()"
+                    class="px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 hover:bg-cyan-500/30">
+              Añadir Imagen
+            </button>
+          </div>
+          <div id="editProdImagesList" class="flex flex-wrap gap-2 pt-1"></div>
+        </div>
+
+        <!-- Características y Reglas (Una por línea para edición ágil) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block text-xs font-bold text-cyan-300 mb-1">
+              Características (una por línea) *
+            </label>
+            <textarea id="editProdFeatures" rows="4" required
+                      placeholder="Calidad 4K Ultra HD&#10;1 perfil privado con PIN&#10;Compatible con Smart TV, móvil y PC"
+                      class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-warm-50 focus:border-cyan-400 focus:outline-none"></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-amber-300 mb-1">
+              Reglas y Condiciones (una por línea) *
+            </label>
+            <textarea id="editProdRules" rows="4" required
+                      placeholder="Uso exclusivo en 1 dispositivo a la vez&#10;No modificar correo ni contraseña de la cuenta&#10;Garantía activa durante todo el periodo contratado"
+                      class="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-warm-50 focus:border-amber-400 focus:outline-none"></textarea>
+          </div>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2.5">
+          <button type="button" onclick="closeProductEditorModal()"
+                  class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-night-800 text-slate-300 hover:bg-night-700">
+            Cancelar
+          </button>
+          <button type="submit"
+                  class="btn-premium px-6 py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-cyan-400 to-violet-400">
+            Guardar Producto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL DE CONFIRMACIÓN DE ELIMINACIÓN (SIN USAR ALERT / CONFIRM DEL NAVEGADOR)
+       ========================================================================= -->
+  <div id="deleteConfirmModal"
+       role="dialog"
+       aria-modal="true"
+       class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-night-900 border border-rose-500/40 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 text-lg">
+          <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <div>
+          <h4 class="font-heading text-base font-bold text-warm-50">Confirmar eliminación</h4>
+          <p class="text-xs text-slate-400">Esta acción quitará el servicio del catálogo.</p>
+        </div>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-200">
+        ¿Estás seguro de eliminar <strong id="deleteProductTargetName" class="text-rose-300"></strong>?
+      </p>
+      <div class="flex justify-end gap-2.5 pt-2">
+        <button type="button" onclick="closeDeleteConfirmModal()"
+                class="px-4 py-2 rounded-xl text-xs font-semibold bg-night-800 text-slate-300 hover:bg-night-700">
+          Cancelar
+        </button>
+        <button type="button" id="confirmDeleteActionBtn"
+                class="btn-premium px-4 py-2 rounded-xl text-xs font-bold bg-rose-500 hover:bg-rose-400 text-slate-950">
+          Sí, eliminar producto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Notificación -->
+  <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-night-900 border border-cyan-400/50 text-warm-50 px-4 py-3 rounded-2xl shadow-2xl items-center gap-3">
+    <i id="toastBannerIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+    <span id="toastBannerText" class="text-xs sm:text-sm font-medium"></span>
+  </div>
+
+  <!-- =========================================================================
+       LÓGICA DE APLICACIÓN FULL STACK (CATÁLOGO, EFECTOS 3D, MODAL ACCESIBLE Y /ADMIN)
+       ========================================================================= -->
+  <script>
+    /**
+     * 1. CONFIGURACIÓN CENTRALIZADA DE LA CAMPAÑA Y CONTACTO WHATSAPP
+     */
+    let SITE_CONFIG = {
+      brandName: 'KGB Streaming',
+      campaignName: 'Juntos por el Niño Jesús de Paucarbambilla',
+      heroHeadline: '“Tu entretenimiento suma a nuestra tradición”',
+      campaignMessage: 'Con tus compras en esta campaña, KGB Streaming destina el 40% de la ganancia a la Cofradía Niño Jesús de Paucarbambilla.',
+      whatsappDisplay: '+51 989 631 010',
+      whatsappNumber: '51989631010',
+      whatsappBaseUrl: 'https://wa.me/51989631010',
+      kgbLogoUrl: 'https://i.imgur.com/3cQ3Fzy.png',
+      ninoImageUrl: 'https://i.imgur.com/jYUtg4z.jpeg'
+    };
+
+    /**
+     * 2. CATÁLOGO COMPLETO DE PRODUCTOS POR CATEGORÍAS Y ETIQUETAS
+     * Categorías oficiales: Streaming | Licencias | IA | Zona Gamer | Otros
+     */
+    const OFFICIAL_CATEGORIES = ['Todas', 'Streaming', 'Licencias', 'IA', 'Zona Gamer', 'Otros'];
+
+    let PRODUCTS_CATALOG = [
+      // ==================== CATEGORÍA: STREAMING ====================
+      {
+        id: 'netflix-individual',
+        order: 1,
+        platform: 'Netflix',
+        plan: 'Plan Individual 4K',
+        category: 'Streaming',
+        price: 15.00,
+        duration: '1 mes',
+        badge: 'Más vendido',
+        tags: ['4K UHD', 'Perfil con PIN', 'Streaming'],
+        featured: true,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#E50914',
+        icon: 'fa-solid fa-film',
+        shortDesc: 'Perfil privado en calidad 4K Ultra HD con tu propio PIN de seguridad y catálogo completo sin anuncios.',
+        fullDesc: 'Disfruta de todas las series, películas y estrenos exclusivos de Netflix en resolución 4K Ultra HD + HDR. Se entrega un perfil privado con nombre y PIN personalizable para que tus recomendaciones se mantengan intactas.',
+        images: [],
+        features: [
+          'Resolución 4K Ultra HD + HDR',
+          '1 perfil privado protegido con PIN',
+          'Descargas habilitadas en celular o tablet',
+          'Soporte y garantía durante todo el mes'
+        ],
+        rules: [
+          'Dispositivos admitidos: Smart TV, celular, tablet, PC o consola (1 pantalla a la vez).',
+          'Tipo de acceso: Perfil asignado dentro de cuenta gestionada por KGB Streaming.',
+          'Instrucciones de uso: Ingresar únicamente al perfil asignado y no modificar datos de seguridad.',
+          'Condiciones de atención: Garantía inmediata por WhatsApp ante cualquier consulta técnica.'
+        ]
+      },
+      {
+        id: 'disney-premium-espn',
+        order: 2,
+        platform: 'Disney+ Premium',
+        plan: 'Plan Individual + ESPN',
+        category: 'Streaming',
+        price: 14.00,
+        duration: '1 mes',
+        badge: 'Deportes en vivo',
+        tags: ['ESPN En Vivo', '4K HDR', 'Streaming'],
+        featured: true,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#06B6D4',
+        icon: 'fa-solid fa-trophy',
+        shortDesc: 'Todo Disney, Marvel, Star Wars, Pixar y todos los canales de ESPN en vivo con torneos internacionales.',
+        fullDesc: 'El plan más completo de Disney+ Premium que integra el catálogo familiar de Disney, las producciones de Star y la transmisión en directo de todos los canales ESPN y eventos deportivos exclusivos.',
+        images: [],
+        features: [
+          'Canales ESPN en vivo incluidos',
+          'Calidad 4K UHD y audio Dolby Atmos',
+          'Catálogo completo Disney, Marvel, Star y National Geographic',
+          'Perfil propio con historial independiente'
+        ],
+        rules: [
+          'Dispositivos admitidos: Smart TV, TV Box, Chromecast, smartphones y computadoras.',
+          'Tipo de acceso: 1 pantalla simultánea en el perfil asignado.',
+          'Instrucciones de uso: No compartir credenciales con terceros ni alterar perfiles ajenos.',
+          'Condiciones de atención: Renovación opcional manteniendo tu mismo perfil.'
+        ]
+      },
+      {
+        id: 'max-platino',
+        order: 3,
+        platform: 'Max (HBO)',
+        plan: 'Plan Platino 4K',
+        category: 'Streaming',
+        price: 12.00,
+        duration: '1 mes',
+        badge: 'Estrenos HBO',
+        tags: ['Champions League', '4K UHD', 'Streaming'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#8B5CF6',
+        icon: 'fa-solid fa-clapperboard',
+        shortDesc: 'Series originales de HBO, universo DC, Warner Bros y partidos de la Champions League en 4K.',
+        fullDesc: 'Vive las producciones más premiadas de HBO, estrenos recién salidos del cine de Warner Bros y transmisiones deportivas seleccionadas con imagen Ultra HD.',
+        images: [],
+        features: [
+          'Resolución 4K UHD',
+          'Series originales HBO y películas Warner',
+          'Perfil individual personalizado',
+          'Descargas offline en dispositivos móviles'
+        ],
+        rules: [
+          'Dispositivos admitidos: Smart TV, celulares iOS/Android, tablets y navegador.',
+          'Tipo de acceso: Perfil privado asignado por el administrador.',
+          'Instrucciones de uso: Reproducir en 1 dispositivo a la vez.',
+          'Condiciones de atención: Garantía total de 30 días.'
+        ]
+      },
+      {
+        id: 'prime-video',
+        order: 4,
+        platform: 'Amazon Prime Video',
+        plan: 'Perfil Individual Full HD/4K',
+        category: 'Streaming',
+        price: 10.00,
+        duration: '1 mes',
+        badge: 'Destacado',
+        tags: ['Series Exclusivas', '4K UHD', 'Streaming'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#0EA5E9',
+        icon: 'fa-solid fa-circle-play',
+        shortDesc: 'Acceso a series y películas originales de Amazon MGM Studios en calidad Ultra HD en todos tus equipos.',
+        fullDesc: 'Disfruta de éxitos exclusivos como The Boys, El Señor de los Anillos, Reacher y estrenos de taquilla con reproducción fluida en Smart TV, móvil o PC.',
+        images: [],
+        features: [
+          'Calidad Full HD y 4K Ultra HD',
+          'Perfil propio con PIN opcional',
+          'Descargas disponibles en la app móvil',
+          'Activación inmediata por WhatsApp'
+        ],
+        rules: [
+          'Dispositivos admitidos: Smart TV, Fire TV Stick, celulares, tablets y PC.',
+          'Tipo de acceso: 1 perfil individual.',
+          'Instrucciones de uso: No realizar alquileres ni compras adicionales dentro de la tienda.',
+          'Condiciones de atención: Garantía activa durante los 30 días.'
+        ]
+      },
+      {
+        id: 'spotify-individual',
+        order: 5,
+        platform: 'Spotify Premium',
+        plan: 'Plan Individual Sin Anuncios',
+        category: 'Streaming',
+        price: 12.00,
+        duration: '1 mes',
+        badge: 'Sin anuncios',
+        tags: ['Música Offline', 'Audio HQ', 'Streaming'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#10B981',
+        icon: 'fa-brands fa-spotify',
+        shortDesc: 'Música ilimitada sin cortes publicitarios, saltos infinitos y modo sin conexión en tu cuenta.',
+        fullDesc: 'Escucha tus playlists y podcasts favoritos con la máxima fidelidad de audio, sin interrupciones publicitarias y con descarga directa para escuchar sin gastar datos.',
+        images: [],
+        features: [
+          'Cero anuncios publicitarios',
+          'Descarga de canciones para modo offline',
+          'Audio en calidad muy alta (320 kbps)',
+          'Activación en cuenta nueva o existente'
+        ],
+        rules: [
+          'Dispositivos admitidos: Celular, PC, Smart TV, parlantes inteligentes y CarPlay/Android Auto.',
+          'Tipo de acceso: Cuenta individual 100% privada.',
+          'Instrucciones de uso: Seguir las instrucciones de activación enviadas por WhatsApp.',
+          'Condiciones de atención: Soporte directo ante cualquier consulta de renovación.'
+        ]
+      },
+      {
+        id: 'youtube-premium',
+        order: 6,
+        platform: 'YouTube Premium',
+        plan: 'Plan Mensual + YouTube Music',
+        category: 'Streaming',
+        price: 12.00,
+        duration: '1 mes',
+        badge: '2 en 1',
+        tags: ['Sin Publicidad', 'YouTube Music', 'Streaming'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#F43F5E',
+        icon: 'fa-brands fa-youtube',
+        shortDesc: 'Videos sin publicidad, reproducción con pantalla apagada y acceso completo a YouTube Music Premium.',
+        fullDesc: 'Olvídate de los anuncios antes y durante los videos en todos tus dispositivos. Reproduce videos en segundo plano mientras usas otras aplicaciones y disfruta de YouTube Music.',
+        images: [],
+        features: [
+          'YouTube y YouTube Music sin anuncios',
+          'Reproducción en segundo plano en móvil',
+          'Descarga de videos y canciones',
+          'Funciona en Smart TV, móvil y PC'
+        ],
+        rules: [
+          'Dispositivos admitidos: Todos los dispositivos donde inicies sesión con tu cuenta.',
+          'Tipo de acceso: Activación por invitación familiar o cuenta asignada.',
+          'Instrucciones de uso: Confirmar correo con el asesor en WhatsApp.',
+          'Condiciones de atención: Cobertura completa durante el mes contratado.'
+        ]
+      },
+      {
+        id: 'crunchyroll-megafan',
+        order: 7,
+        platform: 'Crunchyroll',
+        plan: 'Plan Mega Fan',
+        category: 'Streaming',
+        price: 10.00,
+        duration: '1 mes',
+        badge: 'Anime HD',
+        tags: ['Simulcast Japón', 'Sin Anuncios', 'Streaming'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#F97316',
+        icon: 'fa-solid fa-dragon',
+        shortDesc: 'Todo el catálogo de anime sin anuncios, episodios estreno el mismo día que en Japón y modo offline.',
+        fullDesc: 'Accede a la biblioteca de anime más grande del mundo con subtítulos y doblaje al español, episodios simulcast a horas de su estreno en Japón y descargas en móvil.',
+        images: [],
+        features: [
+          'Catálogo ilimitado de anime sin publicidad',
+          'Episodios Simulcast con Japón',
+          'Descargas habilitadas en dispositivos móviles',
+          'Perfil privado dedicado'
+        ],
+        rules: [
+          'Dispositivos admitidos: Smart TV, consolas, PC, celulares y tablets.',
+          'Tipo de acceso: 1 pantalla a la vez en tu perfil.',
+          'Instrucciones de uso: No alterar la contraseña ni perfiles de otros usuarios.',
+          'Condiciones de atención: Garantía KGB durante toda la suscripción.'
+        ]
+      },
+
+      // ==================== CATEGORÍA: LICENCIAS (AUTODESK, ANTIVIRUS, OFFICE) ====================
+      {
+        id: 'licencia-autodesk-pack',
+        order: 8,
+        platform: 'Autodesk Original',
+        plan: 'Licencia AutoCAD / Revit / Civil 3D',
+        category: 'Licencias',
+        price: 45.00,
+        duration: '1 año',
+        badge: 'Ingeniería y Arquitectura',
+        tags: ['Licencia Autodesk', 'AutoCAD / Revit', 'Educativa / Pro'],
+        featured: true,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#06B6D4',
+        icon: 'fa-solid fa-compass-drafting',
+        shortDesc: 'Licencia oficial para software Autodesk (AutoCAD, Revit, Civil 3D, Inventor, 3ds Max) activada directo en tu cuenta.',
+        fullDesc: 'Ideal para arquitectos, ingenieros y estudiantes. Obtén acceso oficial y estable a las herramientas de Autodesk como AutoCAD, Revit, Civil 3D, Maya e Inventor con descarga directa desde el portal oficial de Autodesk.',
+        images: [],
+        features: [
+          'Compatible con AutoCAD, Revit, Civil 3D, Inventor y más',
+          'Activación sobre tu propio correo o cuenta asignada',
+          'Descarga limpia desde la web oficial de Autodesk (sin cracks)',
+          'Versiones 2023, 2024, 2025 y 2026 disponibles'
+        ],
+        rules: [
+          'Dispositivos admitidos: Windows y macOS según compatibilidad del programa.',
+          'Tipo de acceso: Suscripción activada en cuenta Autodesk.',
+          'Instrucciones de uso: Indicar el correo o software requerido al contactar por WhatsApp.',
+          'Condiciones de atención: Soporte de instalación y garantía durante todo el periodo.'
+        ]
+      },
+      {
+        id: 'licencia-antivirus-kaspersky-eset',
+        order: 9,
+        platform: 'Antivirus ESET / Kaspersky',
+        plan: 'Licencia Original 1 PC / Anual',
+        category: 'Licencias',
+        price: 30.00,
+        duration: '1 año',
+        badge: 'Licencia Antivirus',
+        tags: ['Licencia Antivirus', 'Protección Tiempo Real', '1 Año'],
+        featured: true,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#10B981',
+        icon: 'fa-solid fa-shield-virus',
+        shortDesc: 'Protección total contra virus, ransomware, phishing y amenazas en línea con código de licencia original.',
+        fullDesc: 'Mantén tu laptop o PC 100% protegida durante todo un año con licencias originales de ESET NOD32 / Internet Security o Kaspersky Standard/Plus. Actualización automática de base de datos de firmas y bajo consumo de recursos.',
+        images: [],
+        features: [
+          'Clave de activación original por 12 meses',
+          'Escudo en tiempo real contra malware, troyanos y ransomware',
+          'Protección de pagos bancarios y navegación segura',
+          'Asesoría paso a paso para su activación'
+        ],
+        rules: [
+          'Dispositivos admitidos: 1 PC o Laptop con Windows 10 / 11 (consultar opción para Android o Mac).',
+          'Tipo de acceso: Código serial de activación oficial.',
+          'Instrucciones de uso: Descargar el instalador oficial e ingresar la clave entregada.',
+          'Condiciones de atención: Garantía completa de 1 año con KGB Streaming.'
+        ]
+      },
+      {
+        id: 'licencia-office-365-windows',
+        order: 10,
+        platform: 'Microsoft 365 / Office Pro',
+        plan: 'Licencia Word, Excel, PowerPoint + OneDrive',
+        category: 'Licencias',
+        price: 25.00,
+        duration: '1 año',
+        badge: 'Oficina y Estudio',
+        tags: ['Licencia Microsoft', 'PC / Mac / Móvil', '1 Año'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#3B82F6',
+        icon: 'fa-brands fa-microsoft',
+        shortDesc: 'Paquete completo de Microsoft Office (Word, Excel, PowerPoint, Outlook) con almacenamiento en la nube.',
+        fullDesc: 'Trabaja y estudia sin límites de activación. Incluye las aplicaciones de escritorio siempre actualizadas de Word, Excel, PowerPoint, OneNote y Outlook para PC, Mac, tablet y celular.',
+        images: [],
+        features: [
+          'Word, Excel, PowerPoint, Outlook y OneNote oficiales',
+          'Compatible con Windows, macOS, iOS y Android',
+          'Almacenamiento en la nube OneDrive incluido',
+          'Activación rápida y sin programas externos'
+        ],
+        rules: [
+          'Dispositivos admitidos: Hasta 5 dispositivos del mismo usuario.',
+          'Tipo de acceso: Cuenta Microsoft 365 o clave según modalidad elegida.',
+          'Instrucciones de uso: Iniciar sesión directamente en las apps de Office.',
+          'Condiciones de atención: Garantía y soporte técnico todo el año.'
+        ]
+      },
+
+      // ==================== CATEGORÍA: IA (INTELIGENCIA ARTIFICIAL) ====================
+      {
+        id: 'gemini-mensual',
+        order: 11,
+        platform: 'Google Gemini Advanced',
+        plan: 'Plan Mensual IA Pro',
+        category: 'IA',
+        price: 25.00,
+        duration: '1 mes',
+        badge: 'IA Avanzada',
+        tags: ['Inteligencia Artificial', 'Gemini Pro/Ultra', 'Código y Estudio'],
+        featured: true,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#3B82F6',
+        icon: 'fa-solid fa-wand-magic-sparkles',
+        shortDesc: 'Acceso a los modelos avanzados de Google Gemini para redacción, programación, análisis de PDFs e imágenes.',
+        fullDesc: 'Potencia tu estudio, trabajo o emprendimiento con Gemini Advanced. Analiza documentos extensos, genera código, crea imágenes de alta fidelidad y obtén respuestas con razonamiento profundo.',
+        images: [],
+        features: [
+          'Modelos de IA de última generación de Google',
+          'Ventana de contexto amplia para libros, PDFs y hojas de cálculo',
+          'Generación de imágenes y análisis multimodal',
+          'Activación rápida y guiada por WhatsApp'
+        ],
+        rules: [
+          'Dispositivos admitidos: Navegador web en PC/Mac y aplicación móvil oficial.',
+          'Tipo de acceso: Suscripción mensual activada según indicaciones de KGB Streaming.',
+          'Instrucciones de uso: Uso personal, académico y profesional.',
+          'Condiciones de atención: Soporte prioritario durante los 30 días de vigencia.'
+        ]
+      },
+      {
+        id: 'chatgpt-plus-ia',
+        order: 12,
+        platform: 'ChatGPT Plus (OpenAI)',
+        plan: 'Plan Mensual GPT-4o / o1',
+        category: 'IA',
+        price: 25.00,
+        duration: '1 mes',
+        badge: 'Top IA',
+        tags: ['GPT-4o', 'DALL·E Imágenes', 'IA'],
+        featured: true,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#10B981',
+        icon: 'fa-solid fa-robot',
+        shortDesc: 'La inteligencia artificial más potente para tesis, programación, análisis de archivos Excel/PDF y creación de imágenes.',
+        fullDesc: 'Desbloquea toda la velocidad y capacidad de ChatGPT Plus con acceso a los modelos avanzados de OpenAI, subida de documentos, análisis de datos, modo de voz avanzado y generación de imágenes.',
+        images: [],
+        features: [
+          'Acceso a los modelos más recientes de OpenAI',
+          'Subida y análisis de PDFs, Word, Excel e imágenes',
+          'Creación de imágenes e ilustraciones con IA',
+          'Respuestas rápidas incluso en horas punta'
+        ],
+        rules: [
+          'Dispositivos admitidos: PC, Laptop y celular.',
+          'Tipo de acceso: Acceso gestionado por KGB Streaming (consultar opción compartida o privada).',
+          'Instrucciones de uso: No cambiar credenciales ni compartir el acceso con terceros.',
+          'Condiciones de atención: Garantía durante los 30 días del plan.'
+        ]
+      },
+
+      // ==================== CATEGORÍA: ZONA GAMER ====================
+      {
+        id: 'xbox-game-pass-ultimate',
+        order: 13,
+        platform: 'Xbox Game Pass Ultimate',
+        plan: 'Catálogo PC + Consola + EA Play',
+        category: 'Zona Gamer',
+        price: 25.00,
+        duration: '1 mes',
+        badge: 'Zona Gamer',
+        tags: ['+400 Juegos', 'PC y Xbox', 'EA Play Incluido'],
+        featured: true,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#22C55E',
+        icon: 'fa-brands fa-xbox',
+        shortDesc: 'Juega cientos de títulos de alto nivel en PC y consola Xbox, incluyendo lanzamientos de Día 1 y EA Play.',
+        fullDesc: 'La suscripción definitiva para gamers. Descarga y juega más de 400 títulos como Call of Duty, Forza Horizon, Halo, EA Sports FC, Minecraft y mucho más tanto en Windows PC como en consolas Xbox.',
+        images: [],
+        features: [
+          'Más de 400 juegos para descargar en PC y consola Xbox',
+          'Incluye membresía EA Play sin costo adicional',
+          'Multijugador online en consola habilitado',
+          'Juegos nuevos agregados constantemente'
+        ],
+        rules: [
+          'Dispositivos admitidos: Consola Xbox One / Series X|S y PC con Windows 10/11.',
+          'Tipo de acceso: Cuenta o código de activación según disponibilidad.',
+          'Instrucciones de uso: Seguir la guía rápida enviada por WhatsApp para jugar con tu propio perfil.',
+          'Condiciones de atención: Soporte gamer directo por WhatsApp.'
+        ]
+      },
+      {
+        id: 'playstation-plus-deluxe',
+        order: 14,
+        platform: 'PlayStation Plus',
+        plan: 'Plan Extra / Deluxe (PS4 y PS5)',
+        category: 'Zona Gamer',
+        price: 28.00,
+        duration: '1 mes',
+        badge: 'PS4 / PS5',
+        tags: ['Multijugador Online', 'Catálogo PlayStation', 'Zona Gamer'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#3B82F6',
+        icon: 'fa-brands fa-playstation',
+        shortDesc: 'Catálogo de cientos de juegos para PS4 y PS5, clásicos de PlayStation y modo multijugador online.',
+        fullDesc: 'Disfruta del catálogo de juegos de PlayStation Plus con grandes exclusivos como God of War, Spider-Man, Ghost of Tsushima, Horizon y acceso completo al multijugador en línea.',
+        images: [],
+        features: [
+          'Catálogo de juegos descargables para PS4 y PS5',
+          'Modo multijugador online activo',
+          'Juegos mensuales y catálogo de clásicos',
+          'Entrega y asesoría inmediata de instalación'
+        ],
+        rules: [
+          'Dispositivos admitidos: Consola PlayStation 4 o PlayStation 5 (indicar consola al pedir).',
+          'Tipo de acceso: Cuenta Primaria o Secundaria según elección del cliente.',
+          'Instrucciones de uso: Respetar las indicaciones de activación en consola.',
+          'Condiciones de atención: Garantía activa durante todo el periodo contratado.'
+        ]
+      },
+
+      // ==================== CATEGORÍA: OTROS ====================
+      {
+        id: 'canva-pro',
+        order: 15,
+        platform: 'Canva Pro',
+        plan: 'Plan Mensual o Anual Creativo',
+        category: 'Otros',
+        price: 10.00,
+        duration: '1 mes',
+        badge: 'Diseño y Redes',
+        tags: ['Quitafondos IA', 'Plantillas Pro', 'Diseño'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#A855F7',
+        icon: 'fa-solid fa-palette',
+        shortDesc: 'Plantillas premium ilimitadas, quitafondos con IA en un clic y exportación en alta resolución en tu propio correo.',
+        fullDesc: 'Diseña piezas profesionales para redes sociales, presentaciones, flyers y videos con acceso a todo el banco de recursos Pro, herramientas de Estudio Mágico con IA y redimensionamiento automático.',
+        images: [],
+        features: [
+          'Acceso a +100 millones de fotos, videos y elementos Pro',
+          'Eliminador de fondos de imagen y video en 1 clic',
+          'Estudio Mágico con Inteligencia Artificial',
+          'Se activa directamente con tu propio correo'
+        ],
+        rules: [
+          'Dispositivos admitidos: PC, Mac, tablet y aplicación móvil.',
+          'Tipo de acceso: Invitación a equipo Pro con privacidad en tus diseños.',
+          'Instrucciones de uso: Tus diseños son privados dentro de tu espacio personal.',
+          'Condiciones de atención: Activación en minutos vía WhatsApp.'
+        ]
+      },
+      {
+        id: 'capcut-pro',
+        order: 16,
+        platform: 'CapCut Pro',
+        plan: 'Edición de Video Profesional',
+        category: 'Otros',
+        price: 15.00,
+        duration: '1 mes',
+        badge: 'Creadores TikTok/Reels',
+        tags: ['Subtítulos IA', 'Efectos Pro', 'Edición Video'],
+        featured: false,
+        published: true,
+        availability: 'Disponible',
+        accentColor: '#EC4899',
+        icon: 'fa-solid fa-video',
+        shortDesc: 'Efectos Pro, subtítulos automáticos con IA, eliminación de fondo en video y exportación en 4K sin marca de agua.',
+        fullDesc: 'La herramienta favorita para creadores de contenido, negocios y edición rápida en celular o PC. Desbloquea todas las transiciones Pro, mejora de imagen con IA y subtítulos automáticos.',
+        images: [],
+        features: [
+          'Todos los efectos, filtros y transiciones Pro desbloqueados',
+          'Generación de subtítulos automáticos con IA',
+          'Eliminación de fondo y mejora de calidad 4K',
+          'Compatible con celular y versión de escritorio PC/Mac'
+        ],
+        rules: [
+          'Dispositivos admitidos: Smartphone Android/iOS y PC/Mac.',
+          'Tipo de acceso: Cuenta Pro proporcionada por KGB Streaming.',
+          'Instrucciones de uso: No modificar datos de seguridad de la cuenta.',
+          'Condiciones de atención: Garantía durante los 30 días contratados.'
+        ]
+      }
+    ];
+
+    /**
+     * 3. FUNCIONES CENTRALIZADAS DE WHATSAPP (NÚMERO OFICIAL 51989631010)
+     */
+    function buildGeneralWhatsAppUrl() {
+      const phone = (SITE_CONFIG.whatsappNumber || '51989631010').replace(/\D/g, '');
+      const text = `Hola, ${SITE_CONFIG.brandName}. Vi su catálogo de la campaña ${SITE_CONFIG.campaignName} y quisiera consultar por las cuentas y licencias disponibles.`;
+      return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    }
+
+    function buildProductWhatsAppUrl(product) {
+      const phone = (SITE_CONFIG.whatsappNumber || '51989631010').replace(/\D/g, '');
+      const message = [
+        `Hola, KGB Streaming. Vi su catálogo de la campaña ${SITE_CONFIG.campaignName} y me interesa este servicio.`,
+        `Plataforma ${product.platform}`,
+        `Plan ${product.plan}`,
+        `Duración ${product.duration}`,
+        `Precio publicado S/${Number(product.price).toFixed(2)}`,
+        `¿Está disponible? Quisiera las indicaciones para comprar.`
+      ].join('\n');
+      return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    }
+
+    // Estado de interfaz
+    let activeCategoryFilter = 'Todas';
+    let isAdminAuthenticated = false;
+    let lastFocusedElementBeforeModal = null;
+    let currentEditingImages = [];
+    let pendingDeleteProductId = null;
+    let SHOPPING_CART = [];
+    let redirectCountdownTimer = null;
+
+    /**
+     * 3.1 LÓGICA DEL CARRITO DE COMPRAS (SUMA EXACTA SIN DESCUENTOS) Y REDIRECCIÓN VERIFICADA
+     */
+    function calculateCartTotals() {
+      const totalItems = SHOPPING_CART.reduce((acc, item) => acc + item.qty, 0);
+      const subtotal = SHOPPING_CART.reduce((acc, item) => acc + (Number(item.price) * item.qty), 0);
+      const finalTotal = subtotal;
+      return { totalItems, subtotal, finalTotal };
+    }
+
+    function addToCart(productId, openDrawer = false) {
+      const product = PRODUCTS_CATALOG.find(p => p.id === productId);
+      if (!product) return;
+
+      const existing = SHOPPING_CART.find(item => item.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        SHOPPING_CART.push({
+          id: product.id,
+          platform: product.platform,
+          plan: product.plan,
+          price: Number(product.price),
+          duration: product.duration,
+          accentColor: product.accentColor || '#06B6D4',
+          icon: product.icon || 'fa-solid fa-play',
+          qty: 1
+        });
+      }
+
+      updateCartUI();
+      const { totalItems } = calculateCartTotals();
+      showToast(`${product.platform} agregado al carrito (${totalItems} en tu pedido).`);
+
+      if (openDrawer) {
+        openCartDrawer();
+      }
+    }
+
+    function changeCartItemQty(productId, delta) {
+      const idx = SHOPPING_CART.findIndex(item => item.id === productId);
+      if (idx === -1) return;
+
+      SHOPPING_CART[idx].qty += delta;
+      if (SHOPPING_CART[idx].qty <= 0) {
+        SHOPPING_CART.splice(idx, 1);
+      }
+      updateCartUI();
+    }
+
+    function clearShoppingCart() {
+      SHOPPING_CART = [];
+      updateCartUI();
+      showToast('Carrito vaciado.');
+    }
+
+    function updateCartUI() {
+      const { totalItems, subtotal, finalTotal } = calculateCartTotals();
+
+      // Actualizar botón flotante
+      const badgeEl = document.getElementById('floatingCartBadge');
+      const totalTextEl = document.getElementById('floatingCartTotalText');
+      if (badgeEl) badgeEl.textContent = totalItems;
+      if (totalTextEl) totalTextEl.textContent = `S/ ${finalTotal.toFixed(2)}`;
+
+      // Renderizar lista de productos en el carrito
+      const container = document.getElementById('cartItemsContainer');
+      if (container) {
+        if (SHOPPING_CART.length === 0) {
+          container.innerHTML = `
+            <div class="h-full flex flex-col items-center justify-center text-center py-10 px-4 space-y-3">
+              <div class="w-14 h-14 rounded-2xl bg-night-950 border border-slate-800 flex items-center justify-center text-slate-500 text-xl">
+                <i class="fa-solid fa-cart-plus"></i>
+              </div>
+              <p class="font-heading font-bold text-sm text-warm-50">Tu carrito está vacío</p>
+              <p class="text-xs text-slate-400 max-w-xs">
+                Selecciona una o varias plataformas del catálogo para enviar tu pedido completo por WhatsApp.
+              </p>
+            </div>
+          `;
+        } else {
+          container.innerHTML = SHOPPING_CART.map(item => `
+            <div class="p-3.5 rounded-2xl bg-night-950 border border-slate-800/90 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-warm-50 shrink-0 border border-white/15"
+                     style="background: linear-gradient(135deg, ${item.accentColor}, #0E152D);">
+                  <i class="${item.icon} text-sm"></i>
+                </div>
+                <div class="min-w-0">
+                  <h4 class="font-heading font-bold text-xs sm:text-sm text-warm-50 truncate">${item.platform}</h4>
+                  <p class="text-[11px] text-slate-400 truncate">${item.plan} &bull; ${item.duration}</p>
+                  <span class="text-xs font-extrabold text-cyan-300">S/ ${(item.price * item.qty).toFixed(2)}</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 shrink-0 bg-night-900 px-2 py-1 rounded-xl border border-slate-800">
+                <button type="button" onclick="changeCartItemQty('${item.id}', -1)"
+                        class="w-6 h-6 rounded-lg bg-night-800 hover:bg-night-700 text-slate-200 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-minus text-[10px]"></i>
+                </button>
+                <span class="w-6 text-center font-mono text-xs font-bold text-warm-50">${item.qty}</span>
+                <button type="button" onclick="changeCartItemQty('${item.id}', 1)"
+                        class="w-6 h-6 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-plus text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Actualizar resumen numérico
+      const countEl = document.getElementById('cartSummaryCount');
+      const subEl = document.getElementById('cartSummarySubtotal');
+      const totEl = document.getElementById('cartSummaryTotal');
+
+      if (countEl) countEl.textContent = totalItems;
+      if (subEl) subEl.textContent = `S/ ${subtotal.toFixed(2)}`;
+      if (totEl) totEl.textContent = `S/ ${finalTotal.toFixed(2)}`;
+    }
+
+    function openCartDrawer() {
+      updateCartUI();
+      const modal = document.getElementById('cartDrawerModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeCartDrawer() {
+      const modal = document.getElementById('cartDrawerModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    /**
+     * Construye el enlace de WhatsApp para todo el carrito y abre el modal de redirección verificada
+     */
+    function buildCartComboWhatsAppUrl(orderCode) {
+      const phone = (SITE_CONFIG.whatsappNumber || '51989631010').replace(/\D/g, '');
+      const customerName = (document.getElementById('cartCustomerName')?.value || '').trim() || 'Cliente KGB';
+      const { totalItems, finalTotal } = calculateCartTotals();
+
+      const itemsLines = SHOPPING_CART.map((item, i) =>
+        `${i + 1}. ${item.platform} (${item.plan} - ${item.duration}) x${item.qty} = S/${(item.price * item.qty).toFixed(2)}`
+      ).join('\n');
+
+      const lines = [
+        `Hola, KGB Streaming. Quiero comprar y apoyar la campaña ${SITE_CONFIG.campaignName}.`,
+        `Pedido ${orderCode}`,
+        `Nombre ${customerName}`,
+        `--- Servicios seleccionados (${totalItems}) ---`,
+        itemsLines,
+        `Total S/${finalTotal.toFixed(2)}`,
+        `Quedo atento a la confirmación de disponibilidad y las indicaciones de pago.`
+      ];
+
+      return `https://wa.me/${phone}?text=${encodeURIComponent(lines.join('\n'))}`;
+    }
+
+    function initiateVerifiedWhatsAppCheckout(singleProduct = null) {
+      if (!singleProduct && SHOPPING_CART.length === 0) {
+        showToast('Agrega al menos una plataforma o licencia al carrito para continuar.', true);
+        return;
+      }
+
+      const orderCode = 'KGB-' + Math.floor(1000 + Math.random() * 9000);
+      let targetWhatsappUrl = '';
+      let previewHtml = '';
+
+      if (singleProduct) {
+        targetWhatsappUrl = buildProductWhatsAppUrl(singleProduct);
+        previewHtml = `
+          <div class="flex justify-between items-center text-warm-50 font-bold">
+            <span>${singleProduct.platform} · ${singleProduct.plan}</span>
+            <span class="text-emerald-400">S/ ${Number(singleProduct.price).toFixed(2)}</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Duración: ${singleProduct.duration} &bull; Código: <span class="font-mono text-cyan-300">${orderCode}</span></p>
+        `;
+      } else {
+        targetWhatsappUrl = buildCartComboWhatsAppUrl(orderCode);
+        const { totalItems, finalTotal } = calculateCartTotals();
+        previewHtml = `
+          <div class="flex justify-between text-slate-300">
+            <span>Código de pedido: <strong class="font-mono text-cyan-300">${orderCode}</strong></span>
+            <span>${totalItems} servicio(s)</span>
+          </div>
+          <div class="flex justify-between items-center text-sm font-extrabold text-warm-50 pt-1 border-t border-slate-800">
+            <span>Total a pagar en WhatsApp:</span>
+            <span class="text-emerald-400 text-base">S/ ${finalTotal.toFixed(2)}</span>
+          </div>
+        `;
+      }
+
+      closeCartDrawer();
+      closeProductDetailModal();
+
+      const redirectModal = document.getElementById('verifiedRedirectModal');
+      const previewBox = document.getElementById('redirectOrderPreviewBox');
+      const manualLink = document.getElementById('redirectManualWhatsappLink');
+      const progressBar = document.getElementById('redirectProgressBar');
+
+      if (previewBox) previewBox.innerHTML = previewHtml;
+      if (manualLink) manualLink.setAttribute('href', targetWhatsappUrl);
+      if (progressBar) progressBar.style.width = '15%';
+
+      redirectModal.classList.remove('hidden');
+      redirectModal.classList.add('flex');
+
+      setTimeout(() => {
+        if (progressBar) progressBar.style.width = '100%';
+      }, 80);
+
+      if (redirectCountdownTimer) clearTimeout(redirectCountdownTimer);
+      redirectCountdownTimer = setTimeout(() => {
+        window.open(targetWhatsappUrl, '_blank', 'noopener,noreferrer');
+      }, 1400);
+    }
+
+    function closeVerifiedRedirectModal() {
+      if (redirectCountdownTimer) {
+        clearTimeout(redirectCountdownTimer);
+        redirectCountdownTimer = null;
+      }
+      const redirectModal = document.getElementById('verifiedRedirectModal');
+      redirectModal.classList.add('hidden');
+      redirectModal.classList.remove('flex');
+    }
+
+    /**
+     * 4. RECURSOS VISUALES OFICIALES (LOGOS PROPORCIONADOS POR EL USUARIO)
+     */
+    function renderKgbShieldSvg() {
+      const logoSrc = SITE_CONFIG.kgbLogoUrl || 'https://i.imgur.com/3cQ3Fzy.png';
+      return `<img src="${logoSrc}" alt="KGB Streaming" class="w-full h-full object-contain rounded-lg" onerror="this.style.display='none'" />`;
+    }
+
+    function renderNinoJesusFullArtwork() {
+      const ninoSrc = SITE_CONFIG.ninoImageUrl || 'https://i.imgur.com/jYUtg4z.jpeg';
+      return `<img src="${ninoSrc}" alt="Niño Jesús de Paucarbambilla" class="w-full h-full object-contain rounded-lg" onerror="this.style.display='none'" />`;
+    }
+
+    /**
+     * Genera el arte publicitario de cada tarjeta si el administrador no ha subido una foto externa
+     */
+    function renderProductPosterArtwork(product) {
+      if (product.images && product.images.length > 0 && product.images[0]) {
+        return `
+          <img src="${product.images[0]}"
+               alt="${product.platform} · ${product.plan}"
+               class="product-card-img w-full h-full object-cover" />
+        `;
+      }
+      return `
+        <div class="product-card-img w-full h-full relative flex flex-col items-center justify-center p-6 select-none overflow-hidden"
+             style="background: radial-gradient(circle at 30% 25%, ${product.accentColor}44 0%, #090E22 62%, #03050C 100%);">
+          <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full blur-2xl opacity-40" style="background:${product.accentColor};"></div>
+          <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl text-warm-50 shadow-xl border border-white/20 mb-3"
+               style="background: linear-gradient(135deg, ${product.accentColor}, #0E152D);">
+            <i class="${product.icon || 'fa-solid fa-play'}"></i>
+          </div>
+          <span class="font-heading font-extrabold text-xl text-warm-50 tracking-tight text-center drop-shadow">
+            ${product.platform}
+          </span>
+          <span class="text-xs font-semibold uppercase tracking-widest mt-1 px-2.5 py-0.5 rounded-full bg-black/40 border border-white/15 text-slate-200">
+            ${product.plan}
+          </span>
+        </div>
+      `;
+    }
+
+    /**
+     * 5. RENDERIZADO DE FILTROS Y CATÁLOGO PÚBLICO CON EFECTOS NEÓN E INCLINACIÓN 3D
+     */
+    function getSortedPublishedProducts() {
+      return PRODUCTS_CATALOG
+        .filter(p => p.published)
+        .sort((a, b) => (a.order || 999) - (b.order || 999));
+    }
+
+    function renderCategoryPills() {
+      const container = document.getElementById('categoryPillsContainer');
+      if (!container) return;
+
+      const published = getSortedPublishedProducts();
+      const dynamicCats = [...new Set(published.map(p => p.category))];
+      const categories = [...OFFICIAL_CATEGORIES];
+      dynamicCats.forEach(c => {
+        if (!categories.includes(c)) categories.push(c);
+      });
+
+      const categoryIcons = {
+        'Todas': 'fa-solid fa-border-all',
+        'Streaming': 'fa-solid fa-tv',
+        'Licencias': 'fa-solid fa-key',
+        'IA': 'fa-solid fa-wand-magic-sparkles',
+        'Zona Gamer': 'fa-solid fa-gamepad',
+        'Otros': 'fa-solid fa-layer-group'
+      };
+
+      container.innerHTML = categories.map(cat => {
+        const isActive = cat === activeCategoryFilter;
+        const count = cat === 'Todas'
+          ? published.length
+          : published.filter(p => p.category === cat).length;
+        const iconClass = categoryIcons[cat] || 'fa-solid fa-tag';
+
+        return `
+          <button type="button"
+                  role="tab"
+                  aria-selected="${isActive}"
+                  onclick="selectCategoryFilter('${cat}')"
+                  class="btn-premium inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition ${
+                    isActive
+                      ? 'bg-gradient-to-r from-cyan-400 to-violet-400 text-slate-950 shadow-[0_0_20px_-4px_rgba(6,182,212,0.6)]'
+                      : 'bg-night-900/90 text-slate-300 hover:text-warm-50 border border-slate-800 hover:border-cyan-500/40'
+                  }">
+            <i class="${iconClass} text-xs"></i>
+            <span>${cat}</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold ${
+              isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-night-950 text-cyan-300'
+            }">${count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCategoryFilter(category) {
+      activeCategoryFilter = category;
+      renderCategoryPills();
+      renderPublicCatalogGrid();
+    }
+
+    function handleCatalogFilterChange() {
+      renderPublicCatalogGrid();
+    }
+
+    function renderPublicCatalogGrid() {
+      const grid = document.getElementById('publicCatalogGrid');
+      if (!grid) return;
+
+      const searchTerm = (document.getElementById('searchCatalogInput')?.value || '').toLowerCase().trim();
+      const published = getSortedPublishedProducts();
+
+      const filtered = published.filter(p => {
+        const matchesCat = activeCategoryFilter === 'Todas' || p.category === activeCategoryFilter;
+        const fullTitle = `${p.platform} ${p.plan} ${p.shortDesc} ${p.category}`.toLowerCase();
+        const matchesSearch = !searchTerm || fullTitle.includes(searchTerm);
+        return matchesCat && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full p-10 rounded-3xl bg-night-900/80 border border-slate-800 text-center space-y-3">
+            <i class="fa-solid fa-magnifying-glass text-2xl text-cyan-400"></i>
+            <h3 class="font-heading text-lg font-bold text-warm-50">No encontramos servicios con ese criterio</h3>
+            <p class="text-xs sm:text-sm text-slate-400">Prueba con otra palabra clave o consúltanos directamente por WhatsApp.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(product => {
+        const fullServiceTitle = `${product.platform} · ${product.plan}`;
+        const accent = product.accentColor || '#06B6D4';
+
+        return `
+          <article class="product-card-wrapper group cursor-pointer"
+                   style="--card-accent: ${accent};"
+                   data-product-id="${product.id}"
+                   tabindex="0"
+                   role="button"
+                   aria-label="Ver detalles de ${fullServiceTitle}, precio S/ ${Number(product.price).toFixed(2)}"
+                   onclick="openProductDetailModal('${product.id}', this)"
+                   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductDetailModal('${product.id}', this);}">
+
+            <!-- Halo animado de fuego de neón / energía luminosa -->
+            <div class="product-card-halo"></div>
+
+            <!-- Borde con degradado animado e inclinación 3D -->
+            <div class="product-card-border h-full">
+              <div class="product-card-inner p-4 sm:p-5">
+
+                <div>
+                  <!-- Cabecera Visual / Publicidad de la Plataforma -->
+                  <div class="relative h-40 rounded-2xl overflow-hidden bg-night-950 border border-white/10 mb-3.5">
+                    ${renderProductPosterArtwork(product)}
+
+                    <!-- Etiqueta opcional (Destacado, Últimas unidades, etc.) -->
+                    ${product.badge ? `
+                      <span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-wide bg-night-950/90 text-warm-50 border shadow-md"
+                            style="border-color: ${accent}; box-shadow: 0 0 12px -2px ${accent};">
+                        ${product.featured ? '<i class="fa-solid fa-bolt text-cofradia-goldBright mr-1"></i>' : ''}${product.badge}
+                      </span>
+                    ` : ''}
+
+                    <span class="absolute bottom-2.5 right-2.5 px-2.5 py-0.5 rounded-lg text-[10px] font-semibold bg-night-950/85 text-slate-200 border border-white/10">
+                      ${product.duration}
+                    </span>
+                  </div>
+
+                  <!-- Categoría y Disponibilidad -->
+                  <div class="flex items-center justify-between gap-2 text-[11px] mb-1">
+                    <span class="font-bold uppercase tracking-wider" style="color: ${accent};">
+                      ${product.category}
+                    </span>
+                    <span class="text-emerald-400 font-medium flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                      ${product.availability}
+                    </span>
+                  </div>
+
+                  <!-- Nombre del Servicio o Plan -->
+                  <h3 class="font-heading text-base sm:text-lg font-extrabold text-warm-50 group-hover:text-cyan-300 transition leading-snug">
+                    ${fullServiceTitle}
+                  </h3>
+
+                  <!-- Descripción Breve -->
+                  <p class="text-xs text-slate-300 mt-1.5 line-clamp-2 leading-relaxed">
+                    ${product.shortDesc}
+                  </p>
+
+                  <!-- Etiquetas del producto (Tags) -->
+                  <div class="flex flex-wrap gap-1.5 mt-2.5">
+                    ${(product.tags || [product.category, product.badge].filter(Boolean)).map(tag => `
+                      <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-night-950/90 text-slate-300 border border-slate-800">
+                        <i class="fa-solid fa-tag text-[9px] mr-1 opacity-70" style="color: ${accent};"></i>${tag}
+                      </span>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <!-- Pie de Tarjeta: Precio en Soles + Botones "+ Carrito" y "Pedir ahora" -->
+                <div class="mt-4 pt-3.5 border-t border-slate-800/80 space-y-3">
+                  <div class="flex items-baseline justify-between gap-2">
+                    <div>
+                      <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Precio</span>
+                      <span class="font-heading text-2xl font-extrabold text-warm-50">
+                        S/ ${Number(product.price).toFixed(2)}
+                      </span>
+                      <span class="text-[11px] text-slate-400"> / ${product.duration}</span>
+                    </div>
+                    <span class="text-[10px] text-cofradia-goldLight font-semibold bg-cofradia-burgundy/40 px-2 py-1 rounded-lg border border-cofradia-gold/30 shrink-0">
+                      <i class="fa-solid fa-hand-holding-heart mr-1 text-cofradia-goldBright"></i>40% Cofradía
+                    </span>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button"
+                            onclick="event.stopPropagation(); addToCart('${product.id}', false)"
+                            class="btn-premium group/btn py-2.5 px-2.5 rounded-xl font-bold text-[11px] sm:text-xs text-cyan-300 bg-night-800 hover:bg-night-700 border border-cyan-500/35 flex items-center justify-center gap-1.5">
+                      <i class="fa-solid fa-cart-plus text-xs transition-transform group-hover/btn:scale-110"></i>
+                      <span>+ Carrito</span>
+                    </button>
+
+                    <!-- El botón de WhatsApp pasa por la redirección verificada de la cofradía -->
+                    <button type="button"
+                            onclick="event.stopPropagation(); initiateVerifiedWhatsAppCheckout(PRODUCTS_CATALOG.find(p => p.id === '${product.id}'))"
+                            class="btn-premium group/wa py-2.5 px-2.5 rounded-xl font-bold text-[11px] sm:text-xs text-slate-950 bg-gradient-to-r from-emerald-400 to-wa-green flex items-center justify-center gap-1.5 shadow-[0_0_18px_-4px_rgba(37,211,102,0.55)]">
+                      <i class="fa-brands fa-whatsapp text-sm transition-transform group-hover/wa:scale-110"></i>
+                      <span>Pedir ahora</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      initCardsObserverAndTilt();
+    }
+
+    /**
+     * 6. COMPORTAMIENTOS AVANZADOS DE LAS TARJETAS:
+     * - Aparición suave al entrar en pantalla (IntersectionObserver)
+     * - Elevación ligera e inclinación tridimensional moderada siguiendo el cursor en computadora
+     */
+    function initCardsObserverAndTilt() {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const cards = document.querySelectorAll('.product-card-wrapper');
+
+      if ('IntersectionObserver' in window && !prefersReducedMotion) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry, idx) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('is-visible');
+              }, Math.min(idx * 55, 220));
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => observer.observe(card));
+      } else {
+        cards.forEach(card => card.classList.add('is-visible'));
+      }
+
+      // Inclinación 3D moderada en dispositivos con puntero fino (computadora)
+      if (!prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
+        cards.forEach(wrapper => {
+          const borderEl = wrapper.querySelector('.product-card-border');
+          if (!borderEl) return;
+
+          wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            // Inclinación máxima suave de 4.5 grados para mantener legibilidad total
+            const rotateX = ((y - centerY) / centerY) * -4.5;
+            const rotateY = ((x - centerX) / centerX) * 4.5;
+            borderEl.style.transform = `translateY(-4px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+          });
+
+          wrapper.addEventListener('mouseleave', () => {
+            borderEl.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg)';
+          });
+        });
+      }
+    }
+
+    /**
+     * 7. VENTANA MODAL DE DETALLES DEL PRODUCTO (CON GALERÍA, REGLAS, CIERRE CON ESCAPE Y RESTAURACIÓN DE FOCO)
+     */
+    function openProductDetailModal(productId, triggerEl = null) {
+      const product = PRODUCTS_CATALOG.find(p => p.id === productId);
+      if (!product) return;
+
+      lastFocusedElementBeforeModal = triggerEl || document.activeElement;
+
+      const modal = document.getElementById('productDetailModal');
+      const dialog = document.getElementById('productDetailDialog');
+      dialog.style.setProperty('--modal-accent', product.accentColor || '#06B6D4');
+
+      // Título, Categoría, Etiqueta y Disponibilidad
+      document.getElementById('detailModalTitle').textContent = `${product.platform} · ${product.plan}`;
+      document.getElementById('detailCategoryBadge').textContent = product.category;
+
+      const customBadgeEl = document.getElementById('detailCustomBadge');
+      if (product.badge) {
+        customBadgeEl.textContent = product.badge;
+        customBadgeEl.classList.remove('hidden');
+      } else {
+        customBadgeEl.classList.add('hidden');
+      }
+
+      const availEl = document.getElementById('detailAvailabilityBadge');
+      availEl.textContent = product.availability;
+      availEl.className = 'px-3 py-1 rounded-full text-xs font-bold ' + (
+        product.availability.includes('Agotado')
+          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+          : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+      );
+
+      // Descripción completa, precio y duración
+      document.getElementById('detailFullDescription').textContent = product.fullDesc || product.shortDesc;
+      document.getElementById('detailPriceValue').textContent = `S/ ${Number(product.price).toFixed(2)}`;
+      document.getElementById('detailDurationValue').textContent = product.duration;
+
+      // Imagen principal o galería
+      renderModalGallery(product, 0);
+
+      // Características
+      const featuresEl = document.getElementById('detailFeaturesList');
+      featuresEl.innerHTML = (product.features || []).map(f => `
+        <li class="flex items-start gap-2 p-2 rounded-xl bg-night-950/70 border border-slate-800/80">
+          <i class="fa-solid fa-circle-check text-cyan-400 text-xs mt-1 shrink-0"></i>
+          <span>${f}</span>
+        </li>
+      `).join('');
+
+      // Reglas y Condiciones del Servicio
+      const rulesEl = document.getElementById('detailRulesList');
+      rulesEl.innerHTML = (product.rules || []).map(r => `
+        <li class="flex items-start gap-2">
+          <i class="fa-solid fa-shield-halved text-amber-400 text-xs mt-1 shrink-0"></i>
+          <span>${r}</span>
+        </li>
+      `).join('');
+
+      // Botón grande de WhatsApp y Botón de Agregar al Carrito dentro del modal
+      const waBtn = document.getElementById('detailWhatsappActionBtn');
+      waBtn.setAttribute('href', '#');
+      waBtn.onclick = (e) => {
+        e.preventDefault();
+        initiateVerifiedWhatsAppCheckout(product);
+      };
+
+      const addCartBtn = document.getElementById('detailAddToCartBtn');
+      if (addCartBtn) {
+        addCartBtn.onclick = () => {
+          addToCart(product.id, true);
+          closeProductDetailModal();
+        };
+      }
+
+      // Mostrar modal con transición suave
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        dialog.classList.remove('scale-95');
+        dialog.classList.add('scale-100');
+      });
+
+      setTimeout(() => {
+        document.getElementById('closeDetailModalBtn')?.focus();
+      }, 60);
+    }
+
+    function renderModalGallery(product, activeIndex = 0) {
+      const mainContainer = document.getElementById('detailMainImageContainer');
+      const thumbsContainer = document.getElementById('detailGalleryThumbs');
+      const imgs = (product.images || []).filter(Boolean);
+
+      if (imgs.length === 0) {
+        mainContainer.innerHTML = renderProductPosterArtwork(product);
+        thumbsContainer.innerHTML = '';
+        return;
+      }
+
+      const currentSrc = imgs[activeIndex] || imgs[0];
+      mainContainer.innerHTML = `
+        <img src="${currentSrc}" alt="${product.platform} · ${product.plan}" class="w-full h-full object-cover" />
+      `;
+
+      if (imgs.length > 1) {
+        thumbsContainer.innerHTML = imgs.map((url, idx) => `
+          <button type="button"
+                  onclick="selectModalGalleryImage('${product.id}', ${idx})"
+                  class="w-16 h-12 rounded-xl overflow-hidden border-2 shrink-0 transition ${
+                    idx === activeIndex ? 'border-cyan-400 scale-105' : 'border-slate-700 opacity-60 hover:opacity-100'
+                  }">
+            <img src="${url}" alt="Miniatura ${idx + 1}" class="w-full h-full object-cover" />
+          </button>
+        `).join('');
+      } else {
+        thumbsContainer.innerHTML = '';
+      }
+    }
+
+    function selectModalGalleryImage(productId, index) {
+      const product = PRODUCTS_CATALOG.find(p => p.id === productId);
+      if (product) renderModalGallery(product, index);
+    }
+
+    function closeProductDetailModal() {
+      const modal = document.getElementById('productDetailModal');
+      const dialog = document.getElementById('productDetailDialog');
+      if (modal.classList.contains('hidden')) return;
+
+      modal.classList.add('opacity-0');
+      dialog.classList.remove('scale-100');
+      dialog.classList.add('scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        // Restaurar el foco al elemento que abrió la ventana
+        if (lastFocusedElementBeforeModal && typeof lastFocusedElementBeforeModal.focus === 'function') {
+          lastFocusedElementBeforeModal.focus();
+        }
+      }, 220);
+    }
+
+    // Cerrar al hacer clic en el fondo atenuado o al pulsar Escape
+    document.getElementById('productDetailModal').addEventListener('click', (e) => {
+      if (e.target.id === 'productDetailModal') {
+        closeProductDetailModal();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const detailModal = document.getElementById('productDetailModal');
+        const editModal = document.getElementById('adminProductModal');
+        const deleteModal = document.getElementById('deleteConfirmModal');
+        const cartModal = document.getElementById('cartDrawerModal');
+        const redirectModal = document.getElementById('verifiedRedirectModal');
+        if (!detailModal.classList.contains('hidden')) closeProductDetailModal();
+        if (!editModal.classList.contains('hidden')) closeProductEditorModal();
+        if (!deleteModal.classList.contains('hidden')) closeDeleteConfirmModal();
+        if (cartModal && !cartModal.classList.contains('hidden')) closeCartDrawer();
+        if (redirectModal && !redirectModal.classList.contains('hidden')) closeVerifiedRedirectModal();
+      }
+    });
+
+    /**
+     * 8. ENRUTAMIENTO Y GESTIÓN DEL PANEL PRIVADO (/admin)
+     */
+    function navigateToView(view) {
+      const publicView = document.getElementById('publicView');
+      const adminView = document.getElementById('adminView');
+
+      if (view === 'admin') {
+        publicView.classList.add('hidden');
+        adminView.classList.remove('hidden');
+        window.history.replaceState(null, '', '#/admin');
+        renderAdminViewState();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        adminView.classList.add('hidden');
+        publicView.classList.remove('hidden');
+        if (window.location.hash === '#/admin') {
+          window.history.replaceState(null, '', '#inicio');
+        }
+      }
+    }
+
+    function renderAdminViewState() {
+      const loginBox = document.getElementById('adminLoginBox');
+      const dashboardBox = document.getElementById('adminDashboardBox');
+
+      if (isAdminAuthenticated) {
+        loginBox.classList.add('hidden');
+        dashboardBox.classList.remove('hidden');
+        renderAdminProductsTable();
+        populateAdminCampaignSettingsForm();
+      } else {
+        dashboardBox.classList.add('hidden');
+        loginBox.classList.remove('hidden');
+      }
+    }
+
+    function handleAdminLogin(event) {
+      event.preventDefault();
+      const user = document.getElementById('adminUserField').value.trim();
+      const pass = document.getElementById('adminPassField').value.trim();
+      const errBox = document.getElementById('adminLoginError');
+
+      if (user === 'admin' && pass === 'kgb2026') {
+        isAdminAuthenticated = true;
+        errBox.classList.add('hidden');
+        renderAdminViewState();
+        showToast('Bienvenido al panel administrativo /admin de KGB Streaming.');
+      } else {
+        errBox.classList.remove('hidden');
+      }
+    }
+
+    function handleAdminLogout() {
+      isAdminAuthenticated = false;
+      renderAdminViewState();
+      navigateToView('public');
+      showToast('Sesión de administrador cerrada.');
+    }
+
+    function switchAdminSubTab(tab) {
+      ['products', 'settings', 'deploy'].forEach(t => {
+        const box = document.getElementById(`adminSubTab-${t}`);
+        const btn = document.getElementById(`adminSubTabBtn-${t}`);
+        if (t === tab) {
+          box.classList.remove('hidden');
+          btn.className = 'px-4 py-2.5 rounded-xl text-xs font-bold bg-cyan-400 text-slate-950 transition';
+        } else {
+          box.classList.add('hidden');
+          btn.className = 'px-4 py-2.5 rounded-xl text-xs font-bold bg-night-800 text-slate-300 hover:bg-night-700 transition';
+        }
+      });
+    }
+
+    /**
+     * 9. OPERACIONES CRUD DEL CATÁLOGO EN /admin
+     */
+    function renderAdminProductsTable() {
+      const tbody = document.getElementById('adminProductsTableBody');
+      const sorted = [...PRODUCTS_CATALOG].sort((a, b) => (a.order || 999) - (b.order || 999));
+      document.getElementById('adminTotalProductsCount').textContent = sorted.length;
+
+      tbody.innerHTML = sorted.map((p, idx) => `
+        <tr class="hover:bg-night-800/40 transition">
+          <!-- Orden de aparición -->
+          <td class="py-3.5 px-4 font-mono text-xs text-slate-300 whitespace-nowrap">
+            <div class="flex items-center gap-1">
+              <span class="w-6 text-center font-bold">${idx + 1}</span>
+              <button type="button" onclick="moveProductOrder('${p.id}', -1)"
+                      title="Subir posición"
+                      class="w-6 h-6 rounded bg-night-800 hover:bg-night-700 text-slate-300 flex items-center justify-center">
+                <i class="fa-solid fa-chevron-up text-[10px]"></i>
+              </button>
+              <button type="button" onclick="moveProductOrder('${p.id}', 1)"
+                      title="Bajar posición"
+                      class="w-6 h-6 rounded bg-night-800 hover:bg-night-700 text-slate-300 flex items-center justify-center">
+                <i class="fa-solid fa-chevron-down text-[10px]"></i>
+              </button>
+            </div>
+          </td>
+
+          <!-- Miniatura y Color Neón -->
+          <td class="py-3.5 px-4">
+            <div class="w-12 h-10 rounded-xl overflow-hidden border-2 flex items-center justify-center bg-night-950"
+                 style="border-color: ${p.accentColor}; box-shadow: 0 0 12px -2px ${p.accentColor};">
+              ${p.images && p.images[0]
+                ? `<img src="${p.images[0]}" alt="${p.platform}" class="w-full h-full object-cover" />`
+                : `<i class="${p.icon || 'fa-solid fa-play'} text-sm" style="color:${p.accentColor};"></i>`
+              }
+            </div>
+          </td>
+
+          <!-- Plataforma y Plan -->
+          <td class="py-3.5 px-4">
+            <p class="font-bold text-warm-50">${p.platform} · ${p.plan}</p>
+            <p class="text-[11px] text-slate-400 truncate max-w-xs">${p.shortDesc}</p>
+          </td>
+
+          <!-- Categoría -->
+          <td class="py-3.5 px-4">
+            <span class="px-2.5 py-1 rounded-lg text-[11px] bg-night-950 border border-slate-800 text-slate-300">
+              ${p.category}
+            </span>
+          </td>
+
+          <!-- Precio y Duración -->
+          <td class="py-3.5 px-4 whitespace-nowrap">
+            <strong class="text-warm-50 font-heading">S/ ${Number(p.price).toFixed(2)}</strong>
+            <span class="text-xs text-slate-400 block">${p.duration}</span>
+          </td>
+
+          <!-- Disponibilidad -->
+          <td class="py-3.5 px-4">
+            <span class="text-xs ${p.availability.includes('Agotado') ? 'text-rose-400' : 'text-emerald-400'} font-semibold">
+              ${p.availability}
+            </span>
+          </td>
+
+          <!-- Interruptor Destacado -->
+          <td class="py-3.5 px-4 text-center">
+            <button type="button" onclick="toggleProductFeatured('${p.id}')"
+                    class="w-8 h-8 rounded-xl border transition ${
+                      p.featured
+                        ? 'bg-cofradia-gold/20 border-cofradia-gold text-cofradia-goldBright'
+                        : 'bg-night-950 border-slate-800 text-slate-600 hover:text-slate-400'
+                    }"
+                    title="Marcar o quitar como destacado">
+              <i class="fa-solid fa-star"></i>
+            </button>
+          </td>
+
+          <!-- Interruptor Publicar / Ocultar -->
+          <td class="py-3.5 px-4 text-center">
+            <button type="button" onclick="toggleProductPublished('${p.id}')"
+                    role="switch"
+                    aria-checked="${p.published}"
+                    class="relative inline-flex h-6 w-11 items-center rounded-full transition ${
+                      p.published ? 'bg-emerald-500' : 'bg-slate-700'
+                    }">
+              <span class="inline-block h-4 w-4 transform rounded-full bg-white transition ${
+                p.published ? 'translate-x-6' : 'translate-x-1'
+              }"></span>
+            </button>
+          </td>
+
+          <!-- Acciones: Editar y Eliminar con confirmación -->
+          <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-1.5">
+            <button type="button" onclick="openProductEditorModal('${p.id}')"
+                    class="px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 transition">
+              <i class="fa-solid fa-pen-to-square mr-1"></i>Editar
+            </button>
+            <button type="button" onclick="requestDeleteProduct('${p.id}')"
+                    class="px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function moveProductOrder(productId, direction) {
+      const sorted = [...PRODUCTS_CATALOG].sort((a, b) => (a.order || 999) - (b.order || 999));
+      const idx = sorted.findIndex(p => p.id === productId);
+      const targetIdx = idx + direction;
+      if (idx < 0 || targetIdx < 0 || targetIdx >= sorted.length) return;
+
+      const temp = sorted[idx];
+      sorted[idx] = sorted[targetIdx];
+      sorted[targetIdx] = temp;
+
+      sorted.forEach((item, i) => {
+        item.order = i + 1;
+      });
+
+      PRODUCTS_CATALOG = sorted;
+      if (typeof window.syncCatalogToFirebase === 'function') window.syncCatalogToFirebase();
+      renderAdminProductsTable();
+      renderCategoryPills();
+      renderPublicCatalogGrid();
+      showToast('Orden del catálogo actualizado.');
+    }
+
+    function toggleProductFeatured(productId) {
+      const prod = PRODUCTS_CATALOG.find(p => p.id === productId);
+      if (!prod) return;
+      prod.featured = !prod.featured;
+      if (prod.featured && !prod.badge) prod.badge = 'Destacado';
+      if (typeof window.syncProductToFirebase === 'function') window.syncProductToFirebase(prod);
+      renderAdminProductsTable();
+      renderPublicCatalogGrid();
+      showToast(`Estado destacado actualizado para ${prod.platform}.`);
+    }
+
+    function toggleProductPublished(productId) {
+      const prod = PRODUCTS_CATALOG.find(p => p.id === productId);
+      if (!prod) return;
+      prod.published = !prod.published;
+      if (typeof window.syncProductToFirebase === 'function') window.syncProductToFirebase(prod);
+      renderAdminProductsTable();
+      renderCategoryPills();
+      renderPublicCatalogGrid();
+      showToast(prod.published ? `${prod.platform} publicado en el catálogo.` : `${prod.platform} ocultado del catálogo público.`);
+    }
+
+    function setNeonColorPreset(hexColor) {
+      document.getElementById('editProdAccentColor').value = hexColor;
+    }
+
+    function openProductEditorModal(productId = null) {
+      const modal = document.getElementById('adminProductModal');
+      const titleEl = document.getElementById('adminProductModalTitle');
+
+      if (productId) {
+        const prod = PRODUCTS_CATALOG.find(p => p.id === productId);
+        if (!prod) return;
+        titleEl.textContent = `Editar: ${prod.platform} · ${prod.plan}`;
+        document.getElementById('editProdId').value = prod.id;
+        document.getElementById('editProdPlatform').value = prod.platform;
+        document.getElementById('editProdPlan').value = prod.plan;
+        document.getElementById('editProdCategory').value = prod.category;
+        document.getElementById('editProdPrice').value = prod.price;
+        document.getElementById('editProdDuration').value = prod.duration;
+        document.getElementById('editProdAvailability').value = prod.availability;
+        document.getElementById('editProdBadge').value = prod.badge || '';
+        document.getElementById('editProdAccentColor').value = prod.accentColor || '#06B6D4';
+        document.getElementById('editProdFeatured').checked = !!prod.featured;
+        document.getElementById('editProdPublished').checked = !!prod.published;
+        document.getElementById('editProdShortDesc').value = prod.shortDesc || '';
+        document.getElementById('editProdFullDesc').value = prod.fullDesc || '';
+        document.getElementById('editProdFeatures').value = (prod.features || []).join('\n');
+        document.getElementById('editProdRules').value = (prod.rules || []).join('\n');
+        currentEditingImages = [...(prod.images || [])];
+      } else {
+        titleEl.textContent = 'Agregar Nueva Plataforma o Plan';
+        document.getElementById('adminProductForm').reset();
+        document.getElementById('editProdId').value = '';
+        document.getElementById('editProdDuration').value = '1 mes';
+        document.getElementById('editProdAccentColor').value = '#06B6D4';
+        document.getElementById('editProdPublished').checked = true;
+        currentEditingImages = [];
+      }
+
+      renderEditingImagesList();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProductEditorModal() {
+      const modal = document.getElementById('adminProductModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function addProductImageUrlToList() {
+      const input = document.getElementById('newImageUrlInput');
+      const url = input.value.trim();
+      if (!url) return;
+      currentEditingImages.push(url);
+      input.value = '';
+      renderEditingImagesList();
+    }
+
+    function handleProductImageUpload(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          currentEditingImages.push(e.target.result);
+          renderEditingImagesList();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeEditingImageAt(index) {
+      currentEditingImages.splice(index, 1);
+      renderEditingImagesList();
+    }
+
+    function renderEditingImagesList() {
+      const container = document.getElementById('editProdImagesList');
+      if (currentEditingImages.length === 0) {
+        container.innerHTML = `<span class="text-[11px] text-slate-400">Sin imágenes externas (se mostrará el póster publicitario neón automático de la plataforma).</span>`;
+        return;
+      }
+      container.innerHTML = currentEditingImages.map((imgUrl, idx) => `
+        <div class="relative w-20 h-14 rounded-xl overflow-hidden border border-slate-700 group">
+          <img src="${imgUrl}" alt="Imagen ${idx + 1}" class="w-full h-full object-cover" />
+          <button type="button" onclick="removeEditingImageAt(${idx})"
+                  class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 flex items-center justify-center text-rose-400 text-xs font-bold transition">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function saveProductFromAdmin(event) {
+      event.preventDefault();
+      const existingId = document.getElementById('editProdId').value;
+      const platform = document.getElementById('editProdPlatform').value.trim();
+      const plan = document.getElementById('editProdPlan').value.trim();
+      const category = document.getElementById('editProdCategory').value;
+      const price = parseFloat(document.getElementById('editProdPrice').value) || 10;
+      const duration = document.getElementById('editProdDuration').value.trim();
+      const availability = document.getElementById('editProdAvailability').value;
+      const badge = document.getElementById('editProdBadge').value.trim();
+      const accentColor = document.getElementById('editProdAccentColor').value;
+      const featured = document.getElementById('editProdFeatured').checked;
+      const published = document.getElementById('editProdPublished').checked;
+      const shortDesc = document.getElementById('editProdShortDesc').value.trim();
+      const fullDesc = document.getElementById('editProdFullDesc').value.trim();
+
+      const features = document.getElementById('editProdFeatures').value
+        .split('\n').map(s => s.trim()).filter(Boolean);
+      const rules = document.getElementById('editProdRules').value
+        .split('\n').map(s => s.trim()).filter(Boolean);
+
+      if (existingId) {
+        const index = PRODUCTS_CATALOG.findIndex(p => p.id === existingId);
+        if (index !== -1) {
+          PRODUCTS_CATALOG[index] = {
+            ...PRODUCTS_CATALOG[index],
+            platform,
+            plan,
+            category,
+            price,
+            duration,
+            availability,
+            badge,
+            accentColor,
+            featured,
+            published,
+            shortDesc,
+            fullDesc,
+            images: [...currentEditingImages],
+            features,
+            rules
+          };
+          if (typeof window.syncProductToFirebase === 'function') window.syncProductToFirebase(PRODUCTS_CATALOG[index]);
+        }
+        showToast(`Producto "${platform} · ${plan}" actualizado.`);
+      } else {
+        const newProduct = {
+          id: 'prod-' + Date.now(),
+          order: PRODUCTS_CATALOG.length + 1,
+          platform,
+          plan,
+          category,
+          price,
+          duration,
+          availability,
+          badge,
+          accentColor,
+          featured,
+          published,
+          icon: 'fa-solid fa-circle-play',
+          shortDesc,
+          fullDesc,
+          images: [...currentEditingImages],
+          features,
+          rules
+        };
+        PRODUCTS_CATALOG.push(newProduct);
+        if (typeof window.syncProductToFirebase === 'function') window.syncProductToFirebase(newProduct);
+        showToast(`Nuevo servicio "${platform} · ${plan}" agregado al catálogo.`);
+      }
+
+      closeProductEditorModal();
+      renderAdminProductsTable();
+      renderCategoryPills();
+      renderPublicCatalogGrid();
+    }
+
+    function requestDeleteProduct(productId) {
+      const prod = PRODUCTS_CATALOG.find(p => p.id === productId);
+      if (!prod) return;
+      pendingDeleteProductId = productId;
+      document.getElementById('deleteProductTargetName').textContent = `${prod.platform} · ${prod.plan}`;
+      const modal = document.getElementById('deleteConfirmModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      document.getElementById('confirmDeleteActionBtn').onclick = () => {
+        const deletedId = pendingDeleteProductId;
+        PRODUCTS_CATALOG = PRODUCTS_CATALOG.filter(p => p.id !== deletedId);
+        if (typeof window.deleteProductFromFirebase === 'function') window.deleteProductFromFirebase(deletedId);
+        closeDeleteConfirmModal();
+        renderAdminProductsTable();
+        renderCategoryPills();
+        renderPublicCatalogGrid();
+        showToast('Producto eliminado del catálogo.');
+      };
+    }
+
+    function closeDeleteConfirmModal() {
+      pendingDeleteProductId = null;
+      const modal = document.getElementById('deleteConfirmModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    /**
+     * 10. CONFIGURACIÓN EDITABLE DE LA CAMPAÑA Y EXPORTACIÓN / IMPORTACIÓN JSON
+     */
+    function populateAdminCampaignSettingsForm() {
+      document.getElementById('cfgCampaignName').value = SITE_CONFIG.campaignName;
+      document.getElementById('cfgHeroHeadline').value = SITE_CONFIG.heroHeadline;
+      document.getElementById('cfgCampaignMessage').value = SITE_CONFIG.campaignMessage;
+      document.getElementById('cfgWhatsappDisplay').value = SITE_CONFIG.whatsappDisplay;
+      document.getElementById('cfgWhatsappNumber').value = SITE_CONFIG.whatsappNumber;
+      document.getElementById('cfgKgbLogoUrl').value = SITE_CONFIG.kgbLogoUrl;
+      document.getElementById('cfgNinoImageUrl').value = SITE_CONFIG.ninoImageUrl;
+    }
+
+    function saveCampaignSettingsFromAdmin() {
+      SITE_CONFIG.campaignName = document.getElementById('cfgCampaignName').value.trim() || SITE_CONFIG.campaignName;
+      SITE_CONFIG.heroHeadline = document.getElementById('cfgHeroHeadline').value.trim() || SITE_CONFIG.heroHeadline;
+      SITE_CONFIG.campaignMessage = document.getElementById('cfgCampaignMessage').value.trim() || SITE_CONFIG.campaignMessage;
+      SITE_CONFIG.whatsappDisplay = document.getElementById('cfgWhatsappDisplay').value.trim() || '+51 989 631 010';
+      SITE_CONFIG.whatsappNumber = document.getElementById('cfgWhatsappNumber').value.trim().replace(/\D/g, '') || '51989631010';
+      SITE_CONFIG.kgbLogoUrl = document.getElementById('cfgKgbLogoUrl').value.trim();
+      SITE_CONFIG.ninoImageUrl = document.getElementById('cfgNinoImageUrl').value.trim();
+
+      if (typeof window.syncConfigToFirebase === 'function') window.syncConfigToFirebase();
+      syncSiteConfigToDOM();
+      updateCartUI();
+      renderPublicCatalogGrid();
+      showToast('Configuración de campaña actualizada.');
+    }
+
+    function syncSiteConfigToDOM() {
+      document.querySelectorAll('[data-bind="campaignName"]').forEach(el => {
+        el.textContent = SITE_CONFIG.campaignName;
+      });
+      document.querySelectorAll('[data-bind="heroHeadline"]').forEach(el => {
+        el.textContent = SITE_CONFIG.heroHeadline;
+      });
+      document.querySelectorAll('[data-bind="campaignMessage"]').forEach(el => {
+        el.textContent = SITE_CONFIG.campaignMessage;
+      });
+      document.querySelectorAll('[data-bind="whatsappDisplay"]').forEach(el => {
+        el.textContent = SITE_CONFIG.whatsappDisplay;
+      });
+
+      const generalWaUrl = buildGeneralWhatsAppUrl();
+      document.querySelectorAll('[data-wa-general]').forEach(el => {
+        el.setAttribute('href', generalWaUrl);
+      });
+
+      // Renderizar las 2 imágenes reales en el encabezado, cintillo de catálogo y pie de página
+      const kgbHtml = renderKgbShieldSvg();
+      const ninoHtml = renderNinoJesusFullArtwork();
+
+      ['headerShieldLogo', 'bannerKgbLogo', 'footerShieldLogo', 'redirectKgbLogo'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = kgbHtml;
+      });
+
+      ['headerNinoBadge', 'bannerNinoPhoto', 'footerNinoLogo', 'redirectNinoLogo'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = ninoHtml;
+      });
+    }
+
+    function exportCatalogJson() {
+      const data = {
+        siteConfig: SITE_CONFIG,
+        products: PRODUCTS_CATALOG,
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'kgb-streaming-catalogo-paucarbambilla.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Archivo JSON del catálogo exportado.');
+    }
+
+    function importCatalogJson(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed.siteConfig) SITE_CONFIG = { ...SITE_CONFIG, ...parsed.siteConfig };
+          if (Array.isArray(parsed.products)) PRODUCTS_CATALOG = parsed.products;
+          if (typeof window.syncConfigToFirebase === 'function') window.syncConfigToFirebase();
+          if (typeof window.syncCatalogToFirebase === 'function') window.syncCatalogToFirebase();
+          syncSiteConfigToDOM();
+          populateAdminCampaignSettingsForm();
+          renderAdminProductsTable();
+          renderCategoryPills();
+          renderPublicCatalogGrid();
+          showToast('Catálogo importado correctamente.');
+        } catch (err) {
+          showToast('El archivo JSON seleccionado no tiene un formato válido.', true);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    let toastTimer = null;
+    function showToast(text, isWarning = false) {
+      const banner = document.getElementById('toastBanner');
+      const icon = document.getElementById('toastBannerIcon');
+      const msg = document.getElementById('toastBannerText');
+
+      msg.textContent = text;
+      icon.className = isWarning
+        ? 'fa-solid fa-triangle-exclamation text-amber-400 text-lg'
+        : 'fa-solid fa-circle-check text-emerald-400 text-lg';
+
+      banner.classList.remove('hidden');
+      banner.classList.add('flex');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.add('hidden');
+        banner.classList.remove('flex');
+      }, 3600);
+    }
+
+    /**
+     * INICIALIZACIÓN GENERAL DE LA APLICACIÓN
+     */
+    window.addEventListener('DOMContentLoaded', () => {
+      syncSiteConfigToDOM();
+      renderCategoryPills();
+      renderPublicCatalogGrid();
+      updateCartUI();
+
+      // Detectar si se ingresa directamente a la ruta /admin (#/admin o ?admin=1)
+      if (window.location.hash === '#/admin' || window.location.search.includes('admin=1')) {
+        navigateToView('admin');
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash === '#/admin') {
+        navigateToView('admin');
+      }
+    });
+  </script>
+
+  <!-- =========================================================================
+       MÓDULO QUIRÚRGICO DE BASE DE DATOS GOOGLE FIREBASE (kgb-streaming-paucarbambilla)
+       ========================================================================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Configuración oficial de tu proyecto Firebase
+    const userFirebaseConfig = {
+      apiKey: "AIzaSyAxkp_D8phBIIphD_zOvGvV5DCZ1hpI-DI",
+      authDomain: "kgb-streaming-paucarbambilla.firebaseapp.com",
+      projectId: "kgb-streaming-paucarbambilla",
+      storageBucket: "kgb-streaming-paucarbambilla.firebasestorage.app",
+      messagingSenderId: "549844863731",
+      appId: "1:549844863731:web:8e9232c928d125f7ab4586"
+    };
+
+    const firebaseConfig = typeof __firebase_config !== 'undefined'
+      ? JSON.parse(__firebase_config)
+      : userFirebaseConfig;
+
+    const appId = typeof __app_id !== 'undefined'
+      ? __app_id
+      : 'kgb-streaming-paucarbambilla';
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let initialProductsSeeded = false;
+
+    function updateFirebaseStatusBadge(text, isOnline = true) {
+      const badge = document.getElementById('firebaseSyncStatusBadge');
+      if (!badge) return;
+      if (isOnline) {
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+        badge.innerHTML = `<i class="fa-solid fa-cloud-check mr-1"></i>${text}`;
+      } else {
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        badge.innerHTML = `<i class="fa-solid fa-cloud-bolt mr-1"></i>${text}`;
+      }
+    }
+
+    // Funciones globales para sincronizar desde el panel /admin hacia Firestore
+    window.syncProductToFirebase = async function(product) {
+      if (!currentUser || !product || !product.id) return;
+      try {
+        const ref = doc(db, 'artifacts', appId, 'public', 'data', 'products', String(product.id));
+        await setDoc(ref, JSON.parse(JSON.stringify(product)));
+      } catch (err) {
+        console.error('Error al guardar producto en Firebase:', err);
+      }
+    };
+
+    window.syncCatalogToFirebase = async function() {
+      if (!currentUser) return;
+      try {
+        for (const item of PRODUCTS_CATALOG) {
+          const ref = doc(db, 'artifacts', appId, 'public', 'data', 'products', String(item.id));
+          await setDoc(ref, JSON.parse(JSON.stringify(item)));
+        }
+      } catch (err) {
+        console.error('Error al sincronizar el catálogo completo con Firebase:', err);
+      }
+    };
+
+    window.deleteProductFromFirebase = async function(productId) {
+      if (!currentUser || !productId) return;
+      try {
+        const ref = doc(db, 'artifacts', appId, 'public', 'data', 'products', String(productId));
+        await deleteDoc(ref);
+      } catch (err) {
+        console.error('Error al eliminar producto en Firebase:', err);
+      }
+    };
+
+    window.syncConfigToFirebase = async function() {
+      if (!currentUser) return;
+      try {
+        const ref = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'siteConfig');
+        await setDoc(ref, JSON.parse(JSON.stringify(SITE_CONFIG)));
+      } catch (err) {
+        console.error('Error al guardar configuración en Firebase:', err);
+      }
+    };
+
+    async function initFirebaseConnection() {
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+        currentUser = auth.currentUser;
+      } catch (authErr) {
+        // Si la autenticación anónima aún no está activada en la consola, continuamos con el usuario de respaldo para Firestore en modo prueba
+        console.warn('Aviso de Auth Firebase (verifica activar Proveedor Anónimo):', authErr);
+        currentUser = auth.currentUser || { uid: 'public-catalog-client' };
+      }
+
+      if (!currentUser) return;
+
+      const productsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+      const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'siteConfig');
+
+      // Escuchar cambios en tiempo real en los productos del catálogo
+      onSnapshot(
+        productsColRef,
+        async (snapshot) => {
+          if (snapshot.empty && !initialProductsSeeded) {
+            initialProductsSeeded = true;
+            await window.syncCatalogToFirebase();
+            updateFirebaseStatusBadge('Firebase Sincronizado', true);
+            return;
+          }
+
+          if (!snapshot.empty) {
+            initialProductsSeeded = true;
+            const loadedProducts = [];
+            snapshot.forEach((docSnap) => {
+              loadedProducts.push(docSnap.data());
+            });
+            loadedProducts.sort((a, b) => (a.order || 999) - (b.order || 999));
+            PRODUCTS_CATALOG = loadedProducts;
+
+            renderCategoryPills();
+            renderPublicCatalogGrid();
+            if (isAdminAuthenticated) {
+              renderAdminProductsTable();
+            }
+            updateFirebaseStatusBadge('Firebase En Línea', true);
+          }
+        },
+        (error) => {
+          console.error('Error escuchando colección de productos en Firebase:', error);
+          updateFirebaseStatusBadge('Modo Local (Revisar Reglas)', false);
+        }
+      );
+
+      // Escuchar cambios en tiempo real en la configuración de la campaña
+      onSnapshot(
+        configDocRef,
+        async (docSnap) => {
+          if (docSnap.exists()) {
+            SITE_CONFIG = { ...SITE_CONFIG, ...docSnap.data() };
+            syncSiteConfigToDOM();
+            if (isAdminAuthenticated) {
+              populateAdminCampaignSettingsForm();
+            }
+          } else {
+            await window.syncConfigToFirebase();
+          }
+        },
+        (error) => {
+          console.error('Error escuchando configuración en Firebase:', error);
+        }
+      );
+    }
+
+    initFirebaseConnection();
+  </script>
+</body>
+</html>
